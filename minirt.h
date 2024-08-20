@@ -70,14 +70,14 @@ typedef struct s_ambient_light
 
 typedef struct s_camera
 {
-	t_3d_vec initilal_point;
+	t_3d_vec initial_point;
 	t_3d_vec orient;
 	double	fov;
 }	t_camera;
 
 typedef struct s_light
 {
-	t_3d_vec initilal_point;
+	t_3d_vec initial_point;
 	double	brightness;
 	t_color color;
 }	t_light;
@@ -151,7 +151,7 @@ t_3d_vec generate_ray(t_3d_vec initial_point, t_3d_vec target_point);
 
 //convert_screen_points.c
 t_3d_vec convert_screen_points(int x, int y);
-
+t_3d_vec cross_product(t_3d_vec v1, t_3d_vec v2);
 //set_color_map.c
 int set_color_map(t_rt_info *game);
 
@@ -160,5 +160,5 @@ int set_color_map(t_rt_info *game);
 bool cross_detection_ray_and_plain(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec normal_plain, t_3d_vec point_on_plain, double *t);
 // bool cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec center_point, double radius);
 bool cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec center_point, double radius, double *t);
-
+bool cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec orient, t_3d_vec center_point, double height, double diameter, double *t);
 #endif

@@ -50,3 +50,14 @@ t_3d_vec vec_normalize(t_3d_vec vec)
 	length = norm(vec);
 	return (vec_scalar_mult(vec, 1 / length));
 }
+
+t_3d_vec cross_product(t_3d_vec v1, t_3d_vec v2)
+{
+	t_3d_vec result;
+
+	result.x = v1.y * v2.z - v1.z * v2.y;
+	result.y = v1.z * v2.x - v1.x * v2.z;
+	result.z = v1.x * v2.y - v1.y * v2.x;
+
+	return result;
+}

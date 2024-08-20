@@ -7,17 +7,17 @@ int dummy_read_rtfile(t_rt_info *game)
 	game->ambient_light.color.g = 255;
 	game->ambient_light.color.b = 255;
 
-	game->camera.initilal_point.x = 0;
-	game->camera.initilal_point.y = 0;
-	game->camera.initilal_point.z = -5;	
+	game->camera.initial_point.x = 0;
+	game->camera.initial_point.y = 0;
+	game->camera.initial_point.z = -5;	
 	game->camera.orient.x = 0;
 	game->camera.orient.y = 0;
 	game->camera.orient.z = 1;
 	game->camera.fov = 70;
 
-	game->light.initilal_point.x = -5;
-	game->light.initilal_point.y = 5.0;
-	game->light.initilal_point.z = -5;
+	game->light.initial_point.x = -5;
+	game->light.initial_point.y = 5.0;
+	game->light.initial_point.z = -5;
 	game->light.brightness = 0.6;
 	game->light.color.r = 10;
 	game->light.color.g = 0;
@@ -28,8 +28,8 @@ int dummy_read_rtfile(t_rt_info *game)
 	game->sphere.center_point.z = 5;
 	game->sphere.diameter = 1;
 	game->sphere.color.r = 0;
-	game->sphere.color.g = 0;
-	game->sphere.color.b = 255;
+	game->sphere.color.g = 255;
+	game->sphere.color.b = 0;
 
 	game->plain.point.x = 0;
 	game->plain.point.y = -1;
@@ -97,9 +97,9 @@ int parse_rtfile(int fd, t_rt_info *game)
 		else if (ft_strncmp(split[0], "C", 2) == 0)
 		{
 			tmp = ft_split(split[1], ',');
-			game->camera.initilal_point.x = ft_atob(tmp[0]);
-			game->camera.initilal_point.y = ft_atob(tmp[1]);
-			game->camera.initilal_point.z = ft_atob(tmp[2]);
+			game->camera.initial_point.x = ft_atob(tmp[0]);
+			game->camera.initial_point.y = ft_atob(tmp[1]);
+			game->camera.initial_point.z = ft_atob(tmp[2]);
 			free_split(tmp);
 			tmp = ft_split(split[2], ',');
 			game->camera.orient.x = ft_atoi(tmp[0]);
@@ -111,9 +111,9 @@ int parse_rtfile(int fd, t_rt_info *game)
 		else if (ft_strncmp(split[0], "L", 2) == 0)
 		{
 			tmp = ft_split(split[1], ',');
-			game->light.initilal_point.x = ft_atob(tmp[0]);
-			game->light.initilal_point.y = ft_atob(tmp[1]);
-			game->light.initilal_point.z = ft_atob(tmp[2]);
+			game->light.initial_point.x = ft_atob(tmp[0]);
+			game->light.initial_point.y = ft_atob(tmp[1]);
+			game->light.initial_point.z = ft_atob(tmp[2]);
 			free_split(tmp);
 			game->light.brightness = ft_atob(split[2]);
 			tmp = ft_split(split[3], ',');
@@ -183,10 +183,10 @@ void print_rtinfo(t_rt_info *game)
 {
 	printf("ambient_light.ratio: %f\n", game->ambient_light.ratio);
 	printf("ambient_light.color: %d, %d, %d\n", game->ambient_light.color.r, game->ambient_light.color.g, game->ambient_light.color.b);
-	printf("camera.initilal_point: %f, %f, %f\n", game->camera.initilal_point.x, game->camera.initilal_point.y, game->camera.initilal_point.z);
+	printf("camera.initial_point: %f, %f, %f\n", game->camera.initial_point.x, game->camera.initial_point.y, game->camera.initial_point.z);
 	printf("camera.orient: %f, %f, %f\n", game->camera.orient.x, game->camera.orient.y, game->camera.orient.z);
 	printf("camera.fov: %f\n", game->camera.fov);
-	printf("light.initilal_point: %f, %f, %f\n", game->light.initilal_point.x, game->light.initilal_point.y, game->light.initilal_point.z);
+	printf("light.initial_point: %f, %f, %f\n", game->light.initial_point.x, game->light.initial_point.y, game->light.initial_point.z);
 	printf("light.brightness: %f\n", game->light.brightness);
 	printf("light.color: %d, %d, %d\n", game->light.color.r, game->light.color.g, game->light.color.b);
 	printf("sphere.center_point: %f, %f, %f\n", game->sphere.center_point.x, game->sphere.center_point.y, game->sphere.center_point.z);
@@ -195,8 +195,22 @@ void print_rtinfo(t_rt_info *game)
 	printf("plain.point: %f, %f, %f\n", game->plain.point.x, game->plain.point.y, game->plain.point.z);
 	printf("plain.normal: %f, %f, %f\n", game->plain.normal.x, game->plain.normal.y, game->plain.normal.z);
 	printf("plain.color: %d, %d, %d\n", game->plain.color.r, game->plain.color.g, game->plain.color.b);
+	printf("cylinder.center_point: %f, %f, %f\n", game->cylinder.center_point.x, game->cylinder.center_point.y, game->cylinder.center_point.z);
+	printf("orient: %f, %f, %f\n", game->cylinder.orient.x, game->cylinder.orient.y, game->cylinder.orient.z);
+	printf("diameter: %f\n", game->cylinder.diameter);
+	printf("height: %f\n", game->cylinder.height);
+	printf("color: %d, %d, %d\n", game->cylinder.color.r, game->cylinder.color.g, game->cylinder.color.b);
 	return ;
 }
+
+// typedef struct s_cylinder
+// {
+// 	t_3d_vec center_point;
+// 	t_3d_vec orient;
+// 	double	diameter;
+// 	double	height;
+// 	t_color color;
+// }	t_cylinder;
 
 int read_rtfile(char *filename, t_rt_info *game)
 {
