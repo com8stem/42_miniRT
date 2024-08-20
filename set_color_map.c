@@ -185,7 +185,6 @@ int set_color_map(t_rt_info *game)
 	return 0;
 }
 
-
 // bool cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec center_point, t_3d_vec height,  double diameter, 
 // double height, double *t)
 // typedef struct s_cylinder
