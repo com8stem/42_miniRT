@@ -115,6 +115,9 @@ typedef struct s_rt_info
 	t_light		light;
 	t_sphere	sphere;
 	t_plain		plain;
+	int			sp_num;
+	int			pl_num;
+	int			cy_num;
 	t_cylinder	cylinder;
 	int 		color_map[WIDTH][HEIGHT];
 }				t_rt_info;
@@ -150,7 +153,7 @@ t_3d_vec vec_scalar_mult(t_3d_vec vec, double scalar);
 t_3d_vec generate_ray(t_3d_vec initial_point, t_3d_vec target_point);
 
 //convert_screen_points.c
-t_3d_vec convert_screen_points(int x, int y);
+t_3d_vec convert_screen_points(int x, int y,double fov);
 t_3d_vec cross_product(t_3d_vec v1, t_3d_vec v2);
 //set_color_map.c
 int set_color_map(t_rt_info *game);

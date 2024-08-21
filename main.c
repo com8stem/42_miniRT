@@ -29,6 +29,13 @@ void drow_image(t_rt_info *game)
 	}
 }
 
+
+__attribute__((destructor))
+static void destructor() {
+    system("leaks -q a.out");
+}
+
+
 int main(int argc, char **argv)
 {
 	static t_rt_info game;
@@ -37,7 +44,7 @@ int main(int argc, char **argv)
 	game.img_data = &img;
 	check_argc(argc);
 	check_filename(argv[1]);
-	// check_fileformat(argv[1]);
+	check_fileformat(argv[1]);
 	read_rtfile(argv[1], &game);
 	// dummy_read_rtfile(&game);
 	start_up_window(&game);

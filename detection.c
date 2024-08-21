@@ -164,6 +164,9 @@ bool cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point, t_3d_v
 // 	return (true);
 // }
 
+#ifndef EPSILON
+#define EPSILON 1e-6
+#endif
 
 bool cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec orient, t_3d_vec center_point, double height, double diameter, double *t)
 {
@@ -175,15 +178,20 @@ bool cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point, t_3d
 	double B = 2 * dot_product(cross_rn, cross_ocn);
 	double C = dot_product(cross_ocn, cross_ocn) - (diameter * diameter) / 4.0;
 
-	if (A < 1e-6)
+	if (A <= 0)
 		return (false);
 	double D = B * B - 4 * A * C;
 	if (D < 0)
 		return (false);
 	double t1 = (-B - sqrt(D)) / (2 * A);
 	double t2 = (-B + sqrt(D)) / (2 * A);
-	if (t1 > t2)
+	// if (t1 > t2)
+	// 	t1 = t2;
+	if (t1 < 0 && t2 > 0) 
 		t1 = t2;
+	else if (t1 > t2)
+		t1 = t2;
+	if (t1 < 0)
 	if (t1 < 0)
 		return (false);
 	t_3d_vec p = vec_add(initial_point, vec_scalar_mult(ray, t1));
