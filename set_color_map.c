@@ -11,7 +11,6 @@ bool is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game)
 	double t;
 	int j;
 
-	return (false);
 	j = 0;
 	while (j < game->sp_num)
 	{
