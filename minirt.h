@@ -113,12 +113,12 @@ typedef struct s_rt_info
 	t_ambient_light	ambient_light;
 	t_camera	camera;
 	t_light		light;
-	t_sphere	sphere;
-	t_plain		plain;
+	t_sphere	*sphere;
+	t_plain		*plain;
+	t_cylinder	*cylinder;
 	int			sp_num;
 	int			pl_num;
 	int			cy_num;
-	t_cylinder	cylinder;
 	int 		color_map[WIDTH][HEIGHT];
 }				t_rt_info;
 
@@ -128,7 +128,7 @@ char	*get_next_line(int fd);
 //check_validation.c
 int check_argc(int argc);
 int check_filename(char *filename);
-int check_fileformat(char *filename);
+int check_fileformat(char *filename, t_rt_info *game);
 
 //read_file.c
 int read_rtfile(char *filename, t_rt_info *game);

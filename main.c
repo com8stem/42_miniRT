@@ -35,6 +35,41 @@ static void destructor() {
     system("leaks -q a.out");
 }
 
+void initialize_shape(t_rt_info *game)
+{
+	int i;
+
+	game->sphere = malloc(sizeof(t_sphere) * game->sp_num);
+	game->plain = malloc(sizeof(t_plain) * game->pl_num);
+	game->cylinder = malloc(sizeof(t_cylinder) * game->cy_num);
+	i = 0;
+	while (i < game->sp_num)
+	{
+		game->sphere[i].center_point = (t_3d_vec){0, 0, 0};
+		game->sphere[i].diameter = 0;
+		game->sphere[i].color = (t_color){0, 0, 0};
+		i++;
+	}
+	i = 0;
+	while (i < game->pl_num)
+	{
+		game->plain[i].point = (t_3d_vec){0, 0, 0};
+		game->plain[i].normal = (t_3d_vec){0, 0, 0};
+		game->plain[i].color = (t_color){0, 0, 0};
+		i++;
+	}
+	i = 0;
+	while (i < game->cy_num)
+	{
+		game->cylinder[i].center_point = (t_3d_vec){0, 0, 0};
+		game->cylinder[i].orient = (t_3d_vec){0, 0, 0};
+		game->cylinder[i].diameter = 0;
+		game->cylinder[i].height = 0;
+		game->cylinder[i].color = (t_color){0, 0, 0};
+		i++;
+	}
+}
+
 
 int main(int argc, char **argv)
 {
@@ -44,7 +79,9 @@ int main(int argc, char **argv)
 	game.img_data = &img;
 	check_argc(argc);
 	check_filename(argv[1]);
-	check_fileformat(argv[1]);
+	check_fileformat(argv[1], &game);
+	printf("%d %d %d",game.cy_num, game.sp_num, game.pl_num);
+	initialize_shape(&game);
 	read_rtfile(argv[1], &game);
 	// dummy_read_rtfile(&game);
 	start_up_window(&game);

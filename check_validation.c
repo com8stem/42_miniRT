@@ -71,28 +71,31 @@ void check_a(char **line)
 		show_format_error('u');
 }
 
-int check_line(char *line)
+int check_line(char *line, t_rt_info *game)
 {
 	char **tokens;
 
 	tokens = ft_split(line, ' ');
 	if (!tokens)
 	{
-		printf("check\n");
 		return 0;
 	}
 	if ((ft_strncmp(tokens[0], "R", 2) == 0) || (ft_strncmp(tokens[0], "A", 2) == 0)
-		|| (ft_strncmp(tokens[0], "C", 2) == 0) || (ft_strncmp(tokens[0], "L", 2) == 0)
-		|| (ft_strncmp(tokens[0], "cy", 3) == 0) || (ft_strncmp(tokens[0], "pl", 3) == 0)
-		|| (ft_strncmp(tokens[0], "sp", 3) == 0))
+		|| (ft_strncmp(tokens[0], "C", 2) == 0) || (ft_strncmp(tokens[0], "L", 2) == 0))
 		;
+	else if (ft_strncmp(tokens[0], "cy", 3) == 0)
+		game->cy_num += 1;
+	else if (ft_strncmp(tokens[0], "pl", 3) == 0)
+		game->pl_num += 1;
+	else if (ft_strncmp(tokens[0], "sp", 3) == 0)
+		game->sp_num += 1;
 	else
 		show_format_error('u');
 	free_tokens(tokens);
 	return 0;
 }
 
-int check_fileformat(char *filename)
+int check_fileformat(char *filename, t_rt_info *game)
 {
 	int fd;
 	char *line;
@@ -106,7 +109,7 @@ int check_fileformat(char *filename)
 		char *tmp;
 		tmp = line;
 		if (line)
-			check_line(line);
+			check_line(line, game);
 		line = get_next_line(fd);
 		free(tmp);
 	}
