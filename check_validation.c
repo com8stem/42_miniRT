@@ -4,6 +4,7 @@ int check_argc(int argc)
 {
 	if (argc != 2)
 	{
+		printf("Error\n");
 		printf("Error: Invalid number of arguments\n");
 		exit(1);
 	}
@@ -12,6 +13,7 @@ int check_argc(int argc)
 
 void show_format_error(char c)
 {
+	printf("Error\n");
 	if (c == 'n')
 		printf("Error: File does not exist\n");
 	else if(c == 'r')

@@ -4,6 +4,7 @@
 #define SHADOW_COLOR 0x222222
 #define SHADOW_FACTOR 0.5
 #define BACKGROUND_COLOR 0x000000
+#define EPSILON 1e-6
 #endif
 
 bool is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game)
@@ -14,22 +15,24 @@ bool is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game)
 	j = 0;
 	while (j < game->sp_num)
 	{
-		if (cross_detection_ray_and_sphere(shadow_ray, hit_point, game->sphere[j].center_point, game->sphere[j].diameter / 2, &t) && t > 0 )
+		if (cross_detection_ray_and_sphere(shadow_ray, hit_point, game->sphere[j].center_point, game->sphere[j].diameter / 2, &t) && t >  EPSILON )
 			return (true);
 		j++;
 	}
 	j = 0;
 	while (j < game->pl_num)
 	{
-		if (cross_detection_ray_and_plain(shadow_ray, hit_point, game->plain[j].normal, game->plain[j].point, &t) && t > 0 )
+		if (cross_detection_ray_and_plain(shadow_ray, hit_point, game->plain[j].normal, game->plain[j].point, &t) && t > EPSILON )
 			return (true);
 		j++;
 	}
 	j = 0;
 	while (j < game->cy_num)
 	{
-		if (cross_detection_ray_and_cylinder(shadow_ray, hit_point, game->cylinder[j].orient, game->cylinder[j].center_point, game->cylinder[j].height, game->cylinder[j].diameter, &t) && t > 0)
+		if (cross_detection_ray_and_cylinder(shadow_ray, hit_point, game->cylinder[j].orient, game->cylinder[j].center_point, game->cylinder[j].height, game->cylinder[j].diameter, &t) && t > EPSILON)
+		{
 			return (true);
+		}
 		j++;
 	}
 	return false;
@@ -119,7 +122,6 @@ int set_color_map(t_rt_info *game)
 			i = 0;
 			while (i < game->pl_num)
 			{
-				min_distance = INFINITY;
 				if (cross_detection_ray_and_plain(ray, game->camera.initial_point, game->plain[i].normal, game->plain[i].point, &t_plain) && t_plain > 0)
 				{
 					hit_point = vec_add(game->camera.initial_point, vec_scalar_mult(ray, t_plain));
@@ -139,7 +141,6 @@ int set_color_map(t_rt_info *game)
 			i = 0;
 			while (i < game->cy_num)
 			{
-				min_distance = INFINITY;
 				if (cross_detection_ray_and_cylinder(ray, game->camera.initial_point, game->cylinder[i].orient, game->cylinder[i].center_point, game->cylinder[i].height, game->cylinder[i].diameter, &t_cylinder) && t_cylinder > 0)
 				{
 					hit_point = vec_add(game->camera.initial_point, vec_scalar_mult(ray, t_cylinder));

@@ -1,5 +1,9 @@
 #include "minirt.h"
 
+#ifndef EPSILON
+#define EPSILON 1e-3
+#endif
+
 double ft_maxb(double a, double b)
 {
 	if (a > b)
@@ -39,7 +43,6 @@ bool cross_detection_ray_and_plain(t_3d_vec ray, t_3d_vec initial_point, t_3d_ve
 	*t = b / a;
 	if (*t < 1e-6)
 		return false; // 交点がレイの逆方向にある場合（交差しない）
-
 	return true; // 交差する場合
 }
 
@@ -65,74 +68,6 @@ bool cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point, t_3d_v
 	return (true);
 }
 
-
-// double dot_product(t_3d_vec v1, t_3d_vec v2)
-// {
-// 	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
-// }
-
-
-// cross_detection_ray_and_cylinder(ray, game->camera.initial_point, game->cylinder.height, game->cylinder.diameter, &t_cylinder)
-// bool cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec orient, t_3d_vec center_point, double height, double diameter, double *t)
-// {
-// 	t_3d_vec n = orient;
-// 	double  A = dot_product(cross_product(ray, n), cross_product(ray, n));
-// 	double B = 2 * (dot_product(cross_product(ray,n), cross_product(vec_sub(initial_point, center_point), n)));
-// 	double C = dot_product(cross_product(vec_sub(initial_point, center_point), n), cross_product(vec_sub(initial_point, center_point), n)) - diameter*diameter;
-// 	if (A < 1e-6)
-// 		return (false);
-// 	double D = B*B - 4*A*C;
-// 	if (D < 0)
-// 		return (false);
-// 	double t1 = (-B - sqrt(D)) / (2 * A);
-// 	double t2 = (-B + sqrt(D)) / (2 * A);
-// 	if(*t < 0)
-// 		return (false);
-// 	t_3d_vec p1 = vec_add(initial_point, vec_scalar_mult(ray, t1));
-// 	t_3d_vec p2 = vec_add(initial_point, vec_scalar_mult(ray, t2));
-// 	if ((0 <= dot_product(vec_sub(p1, center_point), n)
-// 		&& dot_product(vec_sub(p1, center_point), n) <= height)
-// 		|| 
-// 		(0 <= dot_product(vec_sub(p2, center_point), n)
-// 		&& dot_product(vec_sub(p2, center_point), n) <= height))
-// 		return (true);
-// 	else
-// 		return (false);
-// }
-
-// bool cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec orient, t_3d_vec center_point, double height, double diameter, double *t)
-// {
-// 	t_3d_vec n = orient;
-// 	t_3d_vec oc = vec_sub(initial_point, center_point);
-// 	t_3d_vec cross_rn = cross_product(ray, n);
-// 	t_3d_vec cross_ocn = cross_product(oc, n);
-// 	double A = dot_product(cross_rn, cross_rn);
-// 	double B = 2 * dot_product(cross_rn, cross_ocn);
-// 	double C = dot_product(cross_ocn, cross_ocn) - (diameter * diameter) / 4.0;
-
-// 	if (A < 1e-6)
-// 		return (false);
-// 	double D = B * B - 4 * A * C;
-// 	if (D < 0)
-// 		return (false);
-// 	double t1 = (-B - sqrt(D)) / (2 * A);
-// 	double t2 = (-B + sqrt(D)) / (2 * A);
-// 	if (t1 > t2)
-// 		t1 = t2;
-// 	if (t1 < 0)
-// 		return (false);
-// 	t_3d_vec p = vec_add(initial_point, vec_scalar_mult(ray, t1));
-// 	double h = dot_product(vec_sub(p, center_point), n);
-// 	if (h < 0 || h > height)
-// 		return (false);
-// 	*t = t1;
-// 	return (true);
-// }
-
-#ifndef EPSILON
-#define EPSILON 1e-6
-#endif
-
 bool cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec orient, t_3d_vec center_point, double height, double diameter, double *t)
 {
 	t_3d_vec n = orient;
@@ -146,20 +81,24 @@ bool cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point, t_3d
 	if (A < EPSILON)
 		return (false);
 	double D = B * B - 4 * A * C;
-	if (D < EPSILON)
+	if (D <  EPSILON)
 		return (false);
 	double t1 = (-B - sqrt(D)) / (2 * A);
 	double t2 = (-B + sqrt(D)) / (2 * A);
-	if (t1 < 0 && t2 > 0) 
+	if (t1 > t2)
+	{
+		double temp = t1;
 		t1 = t2;
-	else if (t1 > t2)
-		t1 = t2;
+		t2 = temp;
+	}
 	if (t1 < EPSILON)
-		return (false);
+	{
+		t1 = t2;
+		if (t1 < EPSILON)
+			return false;
+	}
 	t_3d_vec p = vec_add(initial_point, vec_scalar_mult(ray, t1));
 	double h = dot_product(vec_sub(p, center_point), n);
-	if (h < 0 || h > height)
-		return (false);
 	if (h < 0 || h > height)
 	{
 		// Check bottom cap
