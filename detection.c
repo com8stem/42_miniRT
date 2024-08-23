@@ -1,7 +1,7 @@
 #include "minirt.h"
 
 #ifndef EPSILON
-#define EPSILON 1e-3
+#define EPSILON 1e-6
 #endif
 
 double ft_maxb(double a, double b)
@@ -70,7 +70,7 @@ bool cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point, t_3d_v
 
 bool cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec orient, t_3d_vec center_point, double height, double diameter, double *t)
 {
-	t_3d_vec n = orient;
+	t_3d_vec n = vec_scalar_mult(orient, 1 / norm(orient));
 	t_3d_vec oc = vec_sub(initial_point, center_point);
 	t_3d_vec cross_rn = cross_product(ray, n);
 	t_3d_vec cross_ocn = cross_product(oc, n);
@@ -99,28 +99,25 @@ bool cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point, t_3d
 	}
 	t_3d_vec p = vec_add(initial_point, vec_scalar_mult(ray, t1));
 	double h = dot_product(vec_sub(p, center_point), n);
-	if (h < 0 || h > height)
+	if (h > -1 * EPSILON && h < height + EPSILON)
 	{
-		// Check bottom cap
-		t_3d_vec bottom_center = vec_add(center_point, vec_scalar_mult(n, 0));
-		double t_bottom = dot_product(vec_sub(bottom_center, initial_point), n) / dot_product(ray, n);
-		t_3d_vec p_bottom = vec_add(initial_point, vec_scalar_mult(ray, t_bottom));
-		if (t_bottom >= 1e-6 && norm(vec_sub(p_bottom, bottom_center)) <= diameter / 2.0)
-		{
-			*t = t_bottom;
-			return (true);
-		}
-		// Check top cap
-		t_3d_vec top_center = vec_add(center_point, vec_scalar_mult(n, height));
-		double t_top = dot_product(vec_sub(top_center, initial_point), n) / dot_product(ray, n);
-		t_3d_vec p_top = vec_add(initial_point, vec_scalar_mult(ray, t_top));
-		if (t_top >= 1e-6 && norm(vec_sub(p_top, top_center)) <= diameter / 2.0)
-		{
-			*t = t_top;
-			return (true);
-		}
-		return (false);
+		*t = t1;
+		return true;
 	}
-	*t = t1;
-	return (true);
+	double t_bottom = dot_product(vec_sub(center_point, initial_point), n) / dot_product(ray, n);
+	t_3d_vec p_bottom = vec_add(initial_point, vec_scalar_mult(ray, t_bottom));
+	if (t_bottom > 0 && norm(vec_sub(p_bottom, center_point)) <= diameter / 2.0)
+	{
+		*t = t_bottom;
+		return true;
+	}
+	t_3d_vec top_center = vec_add(center_point, vec_scalar_mult(n, height));
+	double t_top = dot_product(vec_sub(top_center, initial_point), n) / dot_product(ray, n);
+	t_3d_vec p_top = vec_add(initial_point, vec_scalar_mult(ray, t_top));
+	if (t_top > 0 && norm(vec_sub(p_top, top_center)) <= diameter / 2.0)
+	{
+		*t = t_top;
+		return true;
+	}
+	return false;
 }
