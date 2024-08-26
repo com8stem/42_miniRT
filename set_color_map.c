@@ -7,6 +7,34 @@
 #define EPSILON 1e-6
 #endif
 
+int apply_ambient(t_rt_info *game, int color)
+{
+	int r;
+	int g;
+	int b;
+	int final_color;
+
+	int color_r = (color >> 16) & 0xFF;
+	int color_g = (color >> 8) & 0xFF;
+	int color_b = color & 0xFF;
+
+	r = (int)(game->ambient_light.ratio * game->ambient_light.color.r);
+	g = (int)(game->ambient_light.ratio * game->ambient_light.color.g);
+	b = (int)(game->ambient_light.ratio * game->ambient_light.color.b);
+
+	r = (r > 255) ? 255 : (r + color_r);
+	g = (g > 255) ? 255 : (g + color_g);
+	b = (b > 255) ? 255 : (b + color_b);
+
+	r = (r > 255) ? 255 : r;
+	g = (g > 255) ? 255 : g;
+	b = (b > 255) ? 255 : b;
+
+	final_color = (r << 16) | (g << 8) | b;
+
+	return final_color;
+}
+
 bool is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game)
 {
 	double t;
@@ -48,13 +76,24 @@ void set_color(t_rt_info *game, int x, int y, char object_type, int i)
 	int color;
 
 	if (object_type == 's')
+	{
 		color = convert_rgb_to_hex(game->sphere[i].color.r, game->sphere[i].color.g, game->sphere[i].color.b);
+		color = apply_ambient(game, color);
+	}
 	else if (object_type == 'p')
+	{
 		color = convert_rgb_to_hex(game->plain[i].color.r, game->plain[i].color.g, game->plain[i].color.b);
+		color = apply_ambient(game, color);
+	}
 	else if (object_type == 'c')
+	{
 		color = convert_rgb_to_hex(game->cylinder[i].color.r, game->cylinder[i].color.g, game->cylinder[i].color.b);
+		color = apply_ambient(game, color);
+	}
 	else
+	{
 		color = BACKGROUND_COLOR;
+	}
 	game->color_map[y][x] = color;
 }
 
@@ -122,6 +161,7 @@ int set_color_map(t_rt_info *game)
 			i = 0;
 			while (i < game->pl_num)
 			{
+				min_distance = INFINITY;
 				if (cross_detection_ray_and_plain(ray, game->camera.initial_point, game->plain[i].normal, game->plain[i].point, &t_plain) && t_plain > 0)
 				{
 					hit_point = vec_add(game->camera.initial_point, vec_scalar_mult(ray, t_plain));
@@ -141,6 +181,7 @@ int set_color_map(t_rt_info *game)
 			i = 0;
 			while (i < game->cy_num)
 			{
+				min_distance = INFINITY;
 				if (cross_detection_ray_and_cylinder(ray, game->camera.initial_point, game->cylinder[i].orient, game->cylinder[i].center_point, game->cylinder[i].height, game->cylinder[i].diameter, &t_cylinder) && t_cylinder > 0)
 				{
 					hit_point = vec_add(game->camera.initial_point, vec_scalar_mult(ray, t_cylinder));
@@ -161,14 +202,3 @@ int set_color_map(t_rt_info *game)
 	}
 	return 0;
 }
-
-// bool cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec center_point, t_3d_vec height,  double diameter, 
-// double height, double *t)
-// typedef struct s_cylinder
-// {
-// 	t_3d_vec center_point;
-// 	t_3d_vec orient;
-// 	double	diameter;
-// 	double	height;
-// 	t_color color;
-// }	t_cylinder;
