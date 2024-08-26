@@ -139,9 +139,9 @@ int set_color_map(t_rt_info *game)
 			game->color_map[y][x] = BACKGROUND_COLOR;
 			ray = generate_ray(game->camera.initial_point, convert_screen_points(x, y, game->camera.fov));
 			i = 0;
+			min_distance = INFINITY;
 			while (i < game->sp_num)
 			{
-				min_distance = INFINITY;
 				if (cross_detection_ray_and_sphere(ray, game->camera.initial_point, game->sphere[i].center_point, game->sphere[i].diameter / 2, &t_sphere) && t_sphere > 0)
 				{
 					hit_point = vec_add(game->camera.initial_point, vec_scalar_mult(ray, t_sphere));
@@ -161,7 +161,6 @@ int set_color_map(t_rt_info *game)
 			i = 0;
 			while (i < game->pl_num)
 			{
-				min_distance = INFINITY;
 				if (cross_detection_ray_and_plain(ray, game->camera.initial_point, game->plain[i].normal, game->plain[i].point, &t_plain) && t_plain > 0)
 				{
 					hit_point = vec_add(game->camera.initial_point, vec_scalar_mult(ray, t_plain));
@@ -181,7 +180,6 @@ int set_color_map(t_rt_info *game)
 			i = 0;
 			while (i < game->cy_num)
 			{
-				min_distance = INFINITY;
 				if (cross_detection_ray_and_cylinder(ray, game->camera.initial_point, game->cylinder[i].orient, game->cylinder[i].center_point, game->cylinder[i].height, game->cylinder[i].diameter, &t_cylinder) && t_cylinder > 0)
 				{
 					hit_point = vec_add(game->camera.initial_point, vec_scalar_mult(ray, t_cylinder));
