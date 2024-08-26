@@ -1,4 +1,4 @@
-NAME = minirt
+NAME = miniRT
 SRCS = calc_vector_utils.c\
 check_validation.c\
 convert_screen_points.c\
@@ -15,7 +15,7 @@ window_conf.c
 OBJS = $(SRCS:.c=.o)
 HEADERS = minirt.h
 CC = cc
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -Werror
 LINUX_MLXFLAGS = -lXext -lX11 -lm
 MLXFLAGS = -Imlx -lmlx -framework OpenGL -framework AppKit -lm #for macOS
 INCDIR = .
