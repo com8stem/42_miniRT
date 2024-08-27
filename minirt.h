@@ -120,6 +120,9 @@ typedef struct s_rt_info
 	int			pl_num;
 	int			cy_num;
 	int 		color_map[WIDTH][HEIGHT];
+	int			num_camera;
+	int			num_light;
+	int			num_ambient;
 }				t_rt_info;
 
 //get_next_line.c
@@ -132,7 +135,6 @@ int check_fileformat(char *filename, t_rt_info *game);
 
 //read_file.c
 int read_rtfile(char *filename, t_rt_info *game);
-int dummy_read_rtfile(t_rt_info *game);
 
 //mlx_conf.c
 int start_up_window(t_rt_info *game);

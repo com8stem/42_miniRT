@@ -15,7 +15,7 @@ window_conf.c
 OBJS = $(SRCS:.c=.o)
 HEADERS = minirt.h
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra
 LINUX_MLXFLAGS = -lXext -lX11 -lm
 MLXFLAGS = -Imlx -lmlx -framework OpenGL -framework AppKit -lm #for macOS
 INCDIR = .

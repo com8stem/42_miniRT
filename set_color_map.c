@@ -9,29 +9,24 @@
 
 int apply_ambient(t_rt_info *game, int color)
 {
-	int r;
-	int g;
-	int b;
-	int final_color;
-
-	int color_r = (color >> 16) & 0xFF;
-	int color_g = (color >> 8) & 0xFF;
-	int color_b = color & 0xFF;
+	int	r;
+	int	g;
+	int	b;
+	int	final_color;
 
 	r = (int)(game->ambient_light.ratio * game->ambient_light.color.r);
 	g = (int)(game->ambient_light.ratio * game->ambient_light.color.g);
 	b = (int)(game->ambient_light.ratio * game->ambient_light.color.b);
-
-	r = (r > 255) ? 255 : (r + color_r);
-	g = (g > 255) ? 255 : (g + color_g);
-	b = (b > 255) ? 255 : (b + color_b);
-
-	r = (r > 255) ? 255 : r;
-	g = (g > 255) ? 255 : g;
-	b = (b > 255) ? 255 : b;
-
+	r = r + ((color >> 16) & 0xFF);
+	g = g + ((color >> 8) & 0xFF);
+	b = b + (color & 0xFF);
+	 if (r > 255)
+		r = 255;
+	if (g > 255)
+		g = 255;
+	if (b > 255)
+		b = 255;
 	final_color = (r << 16) | (g << 8) | b;
-
 	return final_color;
 }
 

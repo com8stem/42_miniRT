@@ -42,7 +42,6 @@ int check_filename(char *filename)
 	return (0);	
 }
 
-
 void free_tokens(char **token)
 {
 	int i;
@@ -56,12 +55,6 @@ void free_tokens(char **token)
 	free(token);
 }
 
-void check()
-{
-	printf("here\n");
-	return ;
-}
-
 void check_a(char **line)
 {
 	int i;
@@ -73,18 +66,22 @@ void check_a(char **line)
 		show_format_error('u');
 }
 
+
 int check_line(char *line, t_rt_info *game)
 {
 	char **tokens;
 
 	tokens = ft_split(line, ' ');
 	if (!tokens)
-	{
 		return 0;
-	}
-	if ((ft_strncmp(tokens[0], "R", 2) == 0) || (ft_strncmp(tokens[0], "A", 2) == 0)
-		|| (ft_strncmp(tokens[0], "C", 2) == 0) || (ft_strncmp(tokens[0], "L", 2) == 0))
-		;
+	if (ft_strncmp(tokens[0], "A", 2) == 0)
+		game->num_ambient += 1;
+	else if (ft_strncmp(tokens[0], "C", 2) == 0)
+		game->num_camera += 1;
+	else if (ft_strncmp(tokens[0], "L", 2) == 0)
+		game->num_light += 1;
+	else if (ft_strncmp(tokens[0], "sp", 3) == 0)
+		game->sp_num += 1;
 	else if (ft_strncmp(tokens[0], "cy", 3) == 0)
 		game->cy_num += 1;
 	else if (ft_strncmp(tokens[0], "pl", 3) == 0)
@@ -115,8 +112,9 @@ int check_fileformat(char *filename, t_rt_info *game)
 		line = get_next_line(fd);
 		free(tmp);
 	}
-	// check_line(line);
 	free(line);
+	if (game->num_ambient != 1 || game->num_camera != 1 || game->num_light != 1)
+		show_format_error('u');
 
 	close(fd);
 	return (0);	

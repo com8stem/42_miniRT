@@ -1,49 +1,5 @@
 #include "minirt.h"
 
-int dummy_read_rtfile(t_rt_info *game)
-{
-	game->ambient_light.ratio = 0.2;
-	game->ambient_light.color.r = 255;
-	game->ambient_light.color.g = 255;
-	game->ambient_light.color.b = 255;
-
-	game->camera.initial_point.x = 0;
-	game->camera.initial_point.y = 0;
-	game->camera.initial_point.z = -5;	
-	game->camera.orient.x = 0;
-	game->camera.orient.y = 0;
-	game->camera.orient.z = 1;
-	game->camera.fov = 70;
-
-	game->light.initial_point.x = -5;
-	game->light.initial_point.y = 5.0;
-	game->light.initial_point.z = -5;
-	game->light.brightness = 0.6;
-	game->light.color.r = 10;
-	game->light.color.g = 0;
-	game->light.color.b = 255;
-
-	// game->sphere.center_point.x = 0;
-	// game->sphere.center_point.y = 0;
-	// game->sphere.center_point.z = 5;
-	// game->sphere.diameter = 1;
-	// game->sphere.color.r = 0;
-	// game->sphere.color.g = 255;
-	// game->sphere.color.b = 0;
-
-	// game->plain.point.x = 0;
-	// game->plain.point.y = -1;
-	// game->plain.point.z = 0;
-	// game->plain.normal.x = 0;
-	// game->plain.normal.y = 10;
-	// game->plain.normal.z = 0;
-	// game->plain.color.r = 150;
-	// game->plain.color.g = 140;
-	// game->plain.color.b = 255;
-
-	return (0);
-}
-
 int file_open(char *filename)
 {
 	int fd;
@@ -80,6 +36,13 @@ int count_token(char **line)
 	return (i);
 }
 
+void config_error(char *message)
+{
+	printf("Error\n");
+	printf("%s\n", message);
+	exit(1);
+}
+
 int parse_rtfile(int fd, t_rt_info *game)
 {
 	char *line;
@@ -106,10 +69,7 @@ int parse_rtfile(int fd, t_rt_info *game)
 			game->ambient_light.ratio = ft_atob(split[1]);
 			tmp = ft_split(split[2], ',');
 			if (count_token(tmp) != 3)
-			{
-				printf("Error: Ambient light color format is wrong\n");
-				exit(1);
-			}
+				config_error("Ambient light color format is wrong");
 			game->ambient_light.color.r = ft_atoi(tmp[0]);
 			game->ambient_light.color.g = ft_atoi(tmp[1]);
 			game->ambient_light.color.b = ft_atoi(tmp[2]);
@@ -119,34 +79,27 @@ int parse_rtfile(int fd, t_rt_info *game)
 		{
 			tmp = ft_split(split[1], ',');
 			if (count_token(tmp) != 3)
-			{
-				printf("Error: Camera initial point format is wrong\n");
-				exit(1);
-			}
+				config_error("Camera initial point format is wrong");
 			game->camera.initial_point.x = ft_atob(tmp[0]);
 			game->camera.initial_point.y = ft_atob(tmp[1]);
 			game->camera.initial_point.z = ft_atob(tmp[2]);
 			free_split(tmp);
 			tmp = ft_split(split[2], ',');
 			if (count_token(tmp) != 3)
-			{
-				printf("Error: Camera orient format is wrong\n");
-				exit(1);
-			}
-			game->camera.orient.x = ft_atoi(tmp[0]);
-			game->camera.orient.y = ft_atoi(tmp[1]);
-			game->camera.orient.z = ft_atoi(tmp[2]);
+				config_error("Camera orient format is wrong");
+			game->camera.orient.x = ft_atob(tmp[0]);
+			game->camera.orient.y = ft_atob(tmp[1]);
+			game->camera.orient.z = ft_atob(tmp[2]);
 			free_split(tmp);
+			if (game->camera.orient.x == 0 && game->camera.orient.y == 0 && game->camera.orient.z == 0)
+				config_error("Camera orient is wrong");
 			game->camera.fov = ft_atoi(split[3]);
 		}
 		else if (ft_strncmp(split[0], "L", 2) == 0)
 		{
 			tmp = ft_split(split[1], ',');
 			if (count_token(tmp) != 3)
-			{
-				printf("Error: Light initial point format is wrong\n");
-				exit(1);
-			}
+				config_error("Light initial point format is wrong");
 			game->light.initial_point.x = ft_atob(tmp[0]);
 			game->light.initial_point.y = ft_atob(tmp[1]);
 			game->light.initial_point.z = ft_atob(tmp[2]);
@@ -154,10 +107,7 @@ int parse_rtfile(int fd, t_rt_info *game)
 			game->light.brightness = ft_atob(split[2]);
 			tmp = ft_split(split[3], ',');
 			if (count_token(tmp) != 3)
-			{
-				printf("Error: Light color format is wrong\n");
-				exit(1);
-			}
+				config_error("Light color format is wrong");
 			game->light.color.r = ft_atoi(tmp[0]);
 			game->light.color.g = ft_atoi(tmp[1]);
 			game->light.color.b = ft_atoi(tmp[2]);
@@ -167,21 +117,15 @@ int parse_rtfile(int fd, t_rt_info *game)
 		{
 			tmp = ft_split(split[1], ',');
 			if (count_token(tmp) != 3)
-			{
-				printf("Error: Sphere center point format is wrong\n");
-				exit(1);
-			}
+				config_error("Sphere center point format is wrong");
 			game->sphere[sp_count].center_point.x = ft_atob(tmp[0]);
 			game->sphere[sp_count].center_point.y = ft_atob(tmp[1]);
 			game->sphere[sp_count].center_point.z = ft_atob(tmp[2]);
 			free_split(tmp);
 			game->sphere[sp_count].diameter = ft_atob(split[2]);
 			tmp = ft_split(split[3], ',');
-			if (count_token(tmp) != 3)
-			{
-				printf("Error: Sphere color format is wrong\n");
-				exit(1);
-			}
+			if (count_token(tmp) != 3 || game->sphere[sp_count].diameter == 0)
+				config_error("Sphere diameter can not be zero");
 			game->sphere[sp_count].color.r = ft_atoi(tmp[0]);
 			game->sphere[sp_count].color.g = ft_atoi(tmp[1]);
 			game->sphere[sp_count].color.b = ft_atoi(tmp[2]);
@@ -192,30 +136,22 @@ int parse_rtfile(int fd, t_rt_info *game)
 		{
 			tmp = ft_split(split[1], ',');
 			if (count_token(tmp) != 3)
-			{
-				printf("Error: Plain point format is wrong\n");
-				exit(1);
-			}
+				config_error("Plain point format is wrong");
 			game->plain[pl_count].point.x = ft_atob(tmp[0]);
 			game->plain[pl_count].point.y = ft_atob(tmp[1]);
 			game->plain[pl_count].point.z = ft_atob(tmp[2]);
 			free_split(tmp);
 			tmp = ft_split(split[2], ',');
 			if (count_token(tmp) != 3)
-			{
-				printf("Error: Plain normal format is wrong\n");
-				exit(1);
-			}
-			game->plain[pl_count].normal.x = ft_atoi(tmp[0]);
-			game->plain[pl_count].normal.y = ft_atoi(tmp[1]);
-			game->plain[pl_count].normal.z = ft_atoi(tmp[2]);
+				config_error("Plain normal format is wrong");
+			game->plain[pl_count].normal.x = ft_atob(tmp[0]);
+			game->plain[pl_count].normal.y = ft_atob(tmp[1]);
+			game->plain[pl_count].normal.z = ft_atob(tmp[2]);
 			free_split(tmp);
 			tmp = ft_split(split[3], ',');
-			if (count_token(tmp) != 3)
-			{
-				printf("Error: Plain color format is wrong\n");
-				exit(1);
-			}
+			if (count_token(tmp) != 3 ||
+				(game->plain[pl_count].normal.x == 0 && game->plain[pl_count].normal.y == 0 && game->plain[pl_count].normal.z == 0))
+				config_error("Plain color format is wrong");
 			game->plain[pl_count].color.r = ft_atoi(tmp[0]);
 			game->plain[pl_count].color.g = ft_atoi(tmp[1]);
 			game->plain[pl_count].color.b = ft_atoi(tmp[2]);
@@ -226,32 +162,25 @@ int parse_rtfile(int fd, t_rt_info *game)
 		{
 			tmp = ft_split(split[1], ',');
 			if (count_token(tmp) != 3)
-			{
-				printf("Error: Cylinder center point format is wrong\n");
-				exit(1);
-			}
+				config_error("Cylinder center point format is wrong");
 			game->cylinder[cy_count].center_point.x = ft_atob(tmp[0]);
 			game->cylinder[cy_count].center_point.y = ft_atob(tmp[1]);
 			game->cylinder[cy_count].center_point.z = ft_atob(tmp[2]);
 			free_split(tmp);
 			tmp = ft_split(split[2], ',');
 			if (count_token(tmp) != 3)
-			{
-				printf("Error: Cylinder orient format is wrong\n");
-				exit(1);
-			}
-			game->cylinder[cy_count].orient.x = ft_atoi(tmp[0]);
-			game->cylinder[cy_count].orient.y = ft_atoi(tmp[1]);
-			game->cylinder[cy_count].orient.z = ft_atoi(tmp[2]);
+				config_error("Cylinder orient format is wrong");
+			game->cylinder[cy_count].orient.x = ft_atob(tmp[0]);
+			game->cylinder[cy_count].orient.y = ft_atob(tmp[1]);
+			game->cylinder[cy_count].orient.z = ft_atob(tmp[2]);
 			free_split(tmp);
 			game->cylinder[cy_count].diameter = ft_atob(split[3]);
 			game->cylinder[cy_count].height = ft_atob(split[4]);
 			tmp = ft_split(split[5], ',');
-			if (count_token(tmp) != 3)
-			{
-				printf("Error: Cylinder color format is wrong\n");
-				exit(1);
-			}
+			if (count_token(tmp) != 3 ||
+				(game->cylinder[cy_count].orient.x == 0 && game->cylinder[cy_count].orient.y == 0 && game->cylinder[cy_count].orient.z == 0)
+				|| game->cylinder[cy_count].height == 0 || game->cylinder[cy_count].diameter == 0)
+				config_error("Cylinder color format is wrong");
 			game->cylinder[cy_count].color.r = ft_atoi(tmp[0]);
 			game->cylinder[cy_count].color.g = ft_atoi(tmp[1]);
 			game->cylinder[cy_count].color.b = ft_atoi(tmp[2]);
@@ -299,33 +228,12 @@ void print_rtinfo(t_rt_info *game)
 		printf("color: %d, %d, %d\n", game->cylinder[i].color.r, game->cylinder[i].color.g, game->cylinder[i].color.b);
 		i++;
 	}
-	// printf("sphere.center_point: %f, %f, %f\n", game->sphere.center_point.x, game->sphere.center_point.y, game->sphere.center_point.z);
-	// printf("sphere.diameter: %f\n", game->sphere.diameter);
-	// printf("sphere.color: %d, %d, %d\n", game->sphere.color.r, game->sphere.color.g, game->sphere.color.b);
-	// printf("plain.point: %f, %f, %f\n", game->plain.point.x, game->plain.point.y, game->plain.point.z);
-	// printf("plain.normal: %f, %f, %f\n", game->plain.normal.x, game->plain.normal.y, game->plain.normal.z);
-	// printf("plain.color: %d, %d, %d\n", game->plain.color.r, game->plain.color.g, game->plain.color.b);
-	// printf("cylinder.center_point: %f, %f, %f\n", game->cylinder.center_point.x, game->cylinder.center_point.y, game->cylinder.center_point.z);
-	// printf("orient: %f, %f, %f\n", game->cylinder.orient.x, game->cylinder.orient.y, game->cylinder.orient.z);
-	// printf("diameter: %f\n", game->cylinder.diameter);
-	// printf("height: %f\n", game->cylinder.height);
-	// printf("color: %d, %d, %d\n", game->cylinder.color.r, game->cylinder.color.g, game->cylinder.color.b);
 	return ;
 }
-
-// typedef struct s_cylinder
-// {
-// 	t_3d_vec center_point;
-// 	t_3d_vec orient;
-// 	double	diameter;
-// 	double	height;
-// 	t_color color;
-// }	t_cylinder;
 
 int read_rtfile(char *filename, t_rt_info *game)
 {
 	int fd;
-
 
 	fd = file_open(filename);
 	parse_rtfile(fd, game);
