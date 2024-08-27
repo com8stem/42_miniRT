@@ -68,6 +68,8 @@ bool cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point, t_3d_v
 	return (true);
 }
 
+
+
 bool cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec orient, t_3d_vec center_point, double height, double diameter, double *t)
 {
 	t_3d_vec n = vec_scalar_mult(orient, 1 / norm(orient));
@@ -77,6 +79,8 @@ bool cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point, t_3d
 	double A = dot_product(cross_rn, cross_rn);
 	double B = 2 * dot_product(cross_rn, cross_ocn);
 	double C = dot_product(cross_ocn, cross_ocn) - (diameter * diameter) / 4.0;
+	bool hit  = false;
+	double min_dis = INFINITY;
 
 	if (A < EPSILON)
 		return (false);
@@ -101,23 +105,26 @@ bool cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point, t_3d
 	double h = dot_product(vec_sub(p, center_point), n);
 	if (h > -1 * EPSILON && h < height + EPSILON)
 	{
-		*t = t1;
-		return true;
+		min_dis = t1;
+		hit = true;
 	}
 	double t_bottom = dot_product(vec_sub(center_point, initial_point), n) / dot_product(ray, n);
 	t_3d_vec p_bottom = vec_add(initial_point, vec_scalar_mult(ray, t_bottom));
-	if (t_bottom > 0 && norm(vec_sub(p_bottom, center_point)) <= diameter / 2.0)
+	if (t_bottom > EPSILON && norm(vec_sub(p_bottom, center_point)) <= diameter / 2.0)
 	{
-		*t = t_bottom;
-		return true;
+		if (t_bottom < min_dis)
+			min_dis = t_bottom;
+		hit= true;
 	}
 	t_3d_vec top_center = vec_add(center_point, vec_scalar_mult(n, height));
 	double t_top = dot_product(vec_sub(top_center, initial_point), n) / dot_product(ray, n);
 	t_3d_vec p_top = vec_add(initial_point, vec_scalar_mult(ray, t_top));
-	if (t_top > 0 && norm(vec_sub(p_top, top_center)) <= diameter / 2.0)
+	if (t_top > EPSILON && norm(vec_sub(p_top, top_center)) <= diameter / 2.0)
 	{
-		*t = t_top;
-		return true;
+		if (t_top < min_dis)
+			min_dis = t_top;
+		hit =  true;
 	}
-	return false;
+	*t = min_dis;
+	return (hit);
 }
