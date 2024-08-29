@@ -34,11 +34,12 @@ bool	is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game)
 {
 	double t;
 	int j;
+	bool is_front;
 
 	j = 0;
 	while (j < game->sp_num)
 	{
-		if (cross_detection_ray_and_sphere(shadow_ray, hit_point, game->sphere[j].center_point, game->sphere[j].diameter / 2, &t) && t >  EPSILON )
+		if (cross_detection_ray_and_sphere(shadow_ray, hit_point, game->sphere[j].center_point, game->sphere[j].diameter / 2, &t, &is_front) && t >  EPSILON && is_front)
 			return (true);
 		j++;
 	}
@@ -146,6 +147,7 @@ int set_color_map(t_rt_info *game)
 	double t_sphere, t_plain, t_cylinder;
 	t_3d_vec hit_point, shadow_ray;
 	int i;
+	bool is_front;
 
 	for (y = 0; y < HEIGHT; y++)
 	{
@@ -162,7 +164,9 @@ int set_color_map(t_rt_info *game)
 			min_distance = INFINITY;
 			while (i < game->sp_num)
 			{
-				if (cross_detection_ray_and_sphere(ray, game->camera.initial_point, game->sphere[i].center_point, game->sphere[i].diameter / 2, &t_sphere) && t_sphere > 0)
+				t_sphere = 0;
+				is_front = false;
+				if (cross_detection_ray_and_sphere(ray, game->camera.initial_point, game->sphere[i].center_point, game->sphere[i].diameter / 2, &t_sphere, &is_front) && t_sphere > 0 && is_front)
 				{
 					hit_point = vec_add(game->camera.initial_point, vec_scalar_mult(ray, t_sphere));
 					distance = norm(vec_sub(game->camera.initial_point, hit_point));
