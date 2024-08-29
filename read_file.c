@@ -1,8 +1,8 @@
 #include "minirt.h"
 
-int file_open(char *filename)
+int	file_open(char *filename)
 {
-	int fd;
+	int	fd;
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
@@ -13,9 +13,9 @@ int file_open(char *filename)
 	return (fd);
 }
 
-void free_split(char **split)
+void	free_split(char **split)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (split[i])
@@ -26,7 +26,7 @@ void free_split(char **split)
 	free(split);
 }
 
-int count_token(char **line)
+int	count_token(char **line)
 {
 	int	i;
 
@@ -36,7 +36,7 @@ int count_token(char **line)
 	return (i);
 }
 
-int parse_rtfile(int fd, t_rt_info *game)
+int	parse_rtfile(int fd, t_rt_info *game)
 {
 	char *line;
 	char **split;
@@ -73,9 +73,9 @@ int parse_rtfile(int fd, t_rt_info *game)
 	return (0);
 }
 
-int read_rtfile(char *filename, t_rt_info *game)
+int	read_rtfile(char *filename, t_rt_info *game)
 {
-	int fd;
+	int	fd;
 
 	fd = file_open(filename);
 	parse_rtfile(fd, game);

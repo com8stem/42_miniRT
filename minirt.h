@@ -15,6 +15,14 @@
 # define WIDTH 1000
 # define HEIGHT 1000
 
+# ifndef EPSILON
+#  define EPSILON 1e-6
+# endif
+
+#define SHADOW_COLOR 0x222222
+#define SHADOW_FACTOR 0.5
+#define BACKGROUND_COLOR 0x000000
+
 # ifdef __MACH__
 #  define KEY_ESC 53
 #  define KEY_UP 126
@@ -176,4 +184,8 @@ void		free_split(char **split);
 int			count_token(char **line);
 void		parse_cy(char **split, t_rt_info *game, int *cy_count);
 void		parse_pl(char **split, t_rt_info *game, int *pl_count);
+
+int			apply_ambient(t_rt_info *game, int color);
+int			convert_rgb_to_hex_shadow(int r, int g, int b);
+int			convert_rgb_to_hex(int r, int g, int b);
 #endif

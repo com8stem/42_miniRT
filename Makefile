@@ -13,7 +13,8 @@ set_color_map.c\
 window_conf.c\
 parse_shape.c\
 parse_shape_sub.c\
-print_info.c
+print_info.c\
+color_utils.c
 
 
 OBJS = $(SRCS:.c=.o)
@@ -78,5 +79,6 @@ else
 endif
 
 re: fclean all
+bonus: 
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

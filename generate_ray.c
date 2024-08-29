@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-t_3d_vec generate_ray(t_3d_vec initial_point, t_3d_vec target_point)
+t_3d_vec	generate_ray(t_3d_vec initial_point, t_3d_vec target_point)
 {
 	t_3d_vec ray;
 

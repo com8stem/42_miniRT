@@ -1,14 +1,10 @@
 #include "minirt.h"
 
-#ifndef EPSILON
-#define EPSILON 1e-6
-#endif
-
-bool cross_detection_ray_and_plain(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec normal_plain, t_3d_vec point_on_plain, double *t)
+bool	cross_detection_ray_and_plain(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec normal_plain, t_3d_vec point_on_plain, double *t)
 {
-	double a;
-	double b;
-	t_3d_vec s;
+	double		a;
+	double		b;
+	t_3d_vec	s;
 
 	s = vec_sub(point_on_plain, initial_point);
 	a = dot_product(ray, normal_plain);
