@@ -7,7 +7,7 @@
 #define EPSILON 1e-6
 #endif
 
-int apply_ambient(t_rt_info *game, int color)
+int	apply_ambient(t_rt_info *game, int color)
 {
 	int	r;
 	int	g;
@@ -30,7 +30,7 @@ int apply_ambient(t_rt_info *game, int color)
 	return final_color;
 }
 
-bool is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game)
+bool	is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game)
 {
 	double t;
 	int j;
@@ -61,14 +61,14 @@ bool is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game)
 	return false;
 }
 
-int convert_rgb_to_hex(int r, int g, int b)
+int	convert_rgb_to_hex(int r, int g, int b)
 {
 	return ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF);
 }
 
-void set_color(t_rt_info *game, int x, int y, char object_type, int i)
+void	set_color(t_rt_info *game, int x, int y, char object_type, int i)
 {
-	int color;
+	int	color;
 
 	if (object_type == 's')
 	{
@@ -92,7 +92,7 @@ void set_color(t_rt_info *game, int x, int y, char object_type, int i)
 	game->color_map[y][x] = color;
 }
 
-int convert_rgb_to_hex_shadow(int r, int g, int b)
+int	convert_rgb_to_hex_shadow(int r, int g, int b)
 {
 	r = (int)(r * SHADOW_FACTOR);
 	g = (int)(g * SHADOW_FACTOR);
@@ -102,9 +102,9 @@ int convert_rgb_to_hex_shadow(int r, int g, int b)
 }
 
 
-void set_color_shadow(t_rt_info *game, int x, int y, char object_type, int i)
+void	set_color_shadow(t_rt_info *game, int x, int y, char object_type, int i)
 {
-	int color;
+	int	color;
 
 	if (object_type == 's')
 		color = convert_rgb_to_hex_shadow(game->sphere[i].color.r, game->sphere[i].color.g, game->sphere[i].color.b);
@@ -118,9 +118,29 @@ void set_color_shadow(t_rt_info *game, int x, int y, char object_type, int i)
 }
 
 
+t_3d_vec	local_to_global(t_3d_vec local_point, t_camera camera)
+{
+	t_3d_vec	global_point;
+	t_3d_vec	forward;
+	t_3d_vec	up;
+	t_3d_vec	right;
+
+	forward = vec_normalize(camera.orient);
+	up.x = 0;
+	up.y = 1;
+	up.z = 0;
+	right = vec_normalize(cross_product(forward, up));
+	up = vec_normalize(cross_product(right, forward));
+	global_point.x = right.x * local_point.x + up.x * local_point.y + forward.x * local_point.z + camera.initial_point.x;
+	global_point.y = right.y * local_point.x + up.y * local_point.y + forward.y * local_point.z + camera.initial_point.y;
+	global_point.z = right.z * local_point.x + up.z * local_point.y + forward.z * local_point.z + camera.initial_point.z;
+	return (global_point);
+}
+
 int set_color_map(t_rt_info *game)
 {
 	int x, y;
+	int inv_x, inv_y;
 	t_3d_vec ray;
 	double min_distance, distance;
 	double t_sphere, t_plain, t_cylinder;
@@ -131,8 +151,13 @@ int set_color_map(t_rt_info *game)
 	{
 		for (x = 0; x < WIDTH; x++)
 		{
+			inv_x = WIDTH - x - 1;
+			inv_y = HEIGHT - y - 1;
 			game->color_map[y][x] = BACKGROUND_COLOR;
-			ray = generate_ray(game->camera.initial_point, convert_screen_points(x, y, game->camera.fov));
+			t_3d_vec screen_point_local = convert_screen_points(inv_x, inv_y, game->camera.fov);
+			t_3d_vec screen_point_global = local_to_global(screen_point_local, game->camera);
+			ray = generate_ray(screen_point_global, game->camera.initial_point);
+			ray = vec_normalize(ray);
 			i = 0;
 			min_distance = INFINITY;
 			while (i < game->sp_num)
@@ -148,7 +173,7 @@ int set_color_map(t_rt_info *game)
 						if (!is_in_shadow(shadow_ray, hit_point, game))
 							set_color(game, x, y, 's',i);
 						else
-							set_color_shadow(game, x, y, 's',i); // shadow
+							set_color_shadow(game, x, y, 's',i);
 					}
 				}
 				i++;

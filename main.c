@@ -80,10 +80,8 @@ int main(int argc, char **argv)
 	check_argc(argc);
 	check_filename(argv[1]);
 	check_fileformat(argv[1], &game);
-	printf("%d %d %d",game.cy_num, game.sp_num, game.pl_num);
 	initialize_shape(&game);
 	read_rtfile(argv[1], &game);
-	// dummy_read_rtfile(&game);
 	start_up_window(&game);
 	set_color_map(&game);
 	drow_image(&game);
