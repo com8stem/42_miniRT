@@ -1,6 +1,7 @@
 #include "minirt.h"
 
-bool	cross_detection_ray_and_plain(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec normal_plain, t_3d_vec point_on_plain, double *t)
+bool	cross_detection_ray_and_plain(t_3d_vec ray, t_3d_vec initial_point,
+			t_3d_vec normal_plain, t_3d_vec point_on_plain, double *t)
 {
 	double		a;
 	double		b;
@@ -17,7 +18,8 @@ bool	cross_detection_ray_and_plain(t_3d_vec ray, t_3d_vec initial_point, t_3d_ve
 	return true;
 }
 
-bool cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec center_point, double radius, double *t, bool *is_front)
+bool	cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point,
+			t_3d_vec center_point,double radius, double *t, bool *is_front)
 {
 	double a;
 	double b;
@@ -41,7 +43,6 @@ bool cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point, t_3d_v
 		*t = t2;
 	else 
 		return (false);
-	
 	t_3d_vec intersection_point = vec_add(initial_point, vec_scalar_mult(ray, *t));
 	t_3d_vec normal_at_intersection = vec_sub(intersection_point, center_point);
 	normal_at_intersection = vec_normalize(normal_at_intersection);
@@ -51,7 +52,8 @@ bool cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point, t_3d_v
 }
 
 
-bool cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec orient, t_3d_vec center_point, double height, double diameter, double *t)
+bool	cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point,
+	t_3d_vec orient, t_3d_vec center_point, double height, double diameter, double *t)
 {
 	t_3d_vec n = vec_scalar_mult(orient, 1 / norm(orient));
 	t_3d_vec oc = vec_sub(initial_point, center_point);

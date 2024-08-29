@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-int ft_is_space(int n)
+static int	_ft_is_space(int n)
 {
 	if (n == ' ')
 		return (1);
@@ -9,12 +9,16 @@ int ft_is_space(int n)
 
 double ft_atob(const char *str)
 {
-	double result = 0.0;
-	double sign = 1.0;
-	double factor = 0.1;
-	int i = 0;
+	double	result;
+	double	sign;
+	double	factor;
+	int		i;
 
-	while (ft_is_space(str[i]))
+	result = 0.0;
+	sign = 1.0;
+	factor = 0.1;
+	i = 0;
+	while (_ft_is_space(str[i]))
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
@@ -37,5 +41,5 @@ double ft_atob(const char *str)
 			i++;
 		}
 	}
-	return result * sign;
+	return (result * sign);
 }

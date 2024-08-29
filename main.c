@@ -70,10 +70,10 @@ void initialize_shape(t_rt_info *game)
 }
 
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	static t_rt_info game;
-	t_imgdata img;
+	static t_rt_info	game;
+	t_imgdata			img;
 
 	game.img_data = &img;
 	check_argc(argc);

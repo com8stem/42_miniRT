@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-int check_argc(int argc)
+int	check_argc(int argc)
 {
 	if (argc != 2)
 	{
@@ -11,7 +11,7 @@ int check_argc(int argc)
 	return (0);
 }
 
-void show_format_error(char c)
+void	show_format_error(char c)
 {
 	printf("Error\n");
 	if (c == 'n')
@@ -42,9 +42,9 @@ int check_filename(char *filename)
 	return (0);	
 }
 
-void free_tokens(char **token)
+void	free_tokens(char **token)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (token[i])
@@ -55,12 +55,12 @@ void free_tokens(char **token)
 	free(token);
 }
 
-void check_a(char **line)
+void	check_a(char **line)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(line[i]!=NULL)
+	while(line[i] != NULL)
 		i++;
 	if (i != 3)
 		show_format_error('u');
@@ -69,11 +69,11 @@ void check_a(char **line)
 
 int check_line(char *line, t_rt_info *game)
 {
-	char **tokens;
+	char	**tokens;
 
 	tokens = ft_split(line, ' ');
 	if (!tokens)
-		return 0;
+		return (0);
 	if (ft_strncmp(tokens[0], "A", 2) == 0)
 		game->num_ambient += 1;
 	else if (ft_strncmp(tokens[0], "C", 2) == 0)
@@ -91,13 +91,13 @@ int check_line(char *line, t_rt_info *game)
 	else
 		show_format_error('u');
 	free_tokens(tokens);
-	return 0;
+	return (0);
 }
 
-int check_fileformat(char *filename, t_rt_info *game)
+int	check_fileformat(char *filename, t_rt_info *game)
 {
-	int fd;
-	char *line;
+	int		fd;
+	char	*line;
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
@@ -113,9 +113,9 @@ int check_fileformat(char *filename, t_rt_info *game)
 		free(tmp);
 	}
 	free(line);
-	if (game->num_ambient != 1 || game->num_camera != 1 || game->num_light != 1)
+	if (game->num_ambient != 1 || game->num_camera != 1
+		|| game->num_light != 1)
 		show_format_error('u');
-
 	close(fd);
-	return (0);	
+	return (0);
 }
