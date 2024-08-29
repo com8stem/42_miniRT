@@ -9,7 +9,8 @@ bool	is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game)
 	j = 0;
 	while (j < game->sp_num)
 	{
-		if (cross_detection_ray_and_sphere(shadow_ray, hit_point, game->sphere[j].center_point, game->sphere[j].diameter / 2, &t, &is_front) && t >  EPSILON && is_front)
+		t_3d_vec hit_point_offset = vec_add(hit_point, vec_scalar_mult(vec_sub(hit_point,game->sphere[j].center_point), 1e-3));
+		if (cross_detection_ray_and_sphere(shadow_ray, hit_point_offset, game->sphere[j].center_point, game->sphere[j].diameter / 2, &t, &is_front) && t >  EPSILON && is_front)
 			return (true);
 		j++;
 	}

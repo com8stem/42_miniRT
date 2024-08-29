@@ -30,6 +30,8 @@ bool	cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point,
 	s = generate_ray(center_point, initial_point);
 
 	a = norm(ray) * norm(ray);
+	if (a < EPSILON)
+		return (false);
 	b = 2 * (dot_product(s, ray));
 	c = (norm(s) * norm(s)) - (radius * radius);
 	D = (b * b) - (4 * a * c);
@@ -47,7 +49,7 @@ bool	cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point,
 	t_3d_vec normal_at_intersection = vec_sub(intersection_point, center_point);
 	normal_at_intersection = vec_normalize(normal_at_intersection);
 	double dot = dot_product(ray, normal_at_intersection);
-	*is_front = (dot < 0);
+	*is_front = (dot < EPSILON);
 	return (true);
 }
 
