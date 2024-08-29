@@ -2,6 +2,7 @@ NAME = miniRT
 SRCS = calc_vector_utils.c\
 calc_vecter_utils_sub.c\
 check_validation.c\
+check_validation_sub.c\
 convert_screen_points.c\
 detection.c\
 ft_atob.c\

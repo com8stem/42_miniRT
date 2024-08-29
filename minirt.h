@@ -189,4 +189,7 @@ int			apply_ambient(t_rt_info *game, int color);
 int			convert_rgb_to_hex_shadow(int r, int g, int b, double brightness);
 int			convert_rgb_to_hex(int r, int g, int b, double brightness);
 void		check_color_range(int r, int g, int b);
+
+void		show_format_error(char c);
+void		free_tokens(char **token);
 #endif
