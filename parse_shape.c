@@ -20,12 +20,14 @@ void	parse_sp(char **split, t_rt_info *game, int *sp_count)
 	free_split(tmp);
 	game->sphere[*sp_count].diameter = ft_atob(split[2]);
 	tmp = ft_split(split[3], ',');
-	if (count_token(tmp) != 3 || game->sphere[*sp_count].diameter == 0)
-		config_error("Sphere diameter can not be zero");
+	if (count_token(tmp) != 3 || game->sphere[*sp_count].diameter <= 0)
+		config_error("Sphere diameter must be larger than zero");
 	game->sphere[*sp_count].color.r = ft_atoi(tmp[0]);
 	game->sphere[*sp_count].color.g = ft_atoi(tmp[1]);
 	game->sphere[*sp_count].color.b = ft_atoi(tmp[2]);
 	free_split(tmp);
+	check_color_range(game->sphere[*sp_count].color.r,
+		game->sphere[*sp_count].color.g, game->sphere[*sp_count].color.b);
 	*sp_count += 1;
 }
 
@@ -48,6 +50,8 @@ void parse_l(char **split, t_rt_info *game)
 	game->light.color.g = ft_atoi(tmp[1]);
 	game->light.color.b = ft_atoi(tmp[2]);
 	free_split(tmp);
+	if (game->light.brightness < 0 || game->light.brightness > 1)
+		config_error("Light brightness should be between 0 and 1");
 }
 
 void	parse_c(char **split, t_rt_info *game)
@@ -85,5 +89,9 @@ void	parse_a(char **split, t_rt_info *game)
 	game->ambient_light.color.r = ft_atoi(tmp[0]);
 	game->ambient_light.color.g = ft_atoi(tmp[1]);
 	game->ambient_light.color.b = ft_atoi(tmp[2]);
+	if (game->ambient_light.ratio < 0 || game->ambient_light.ratio > 1)
+		config_error("Ambient light ratio should be between 0 and 1");
+	check_color_range(game->ambient_light.color.r,
+		game->ambient_light.color.g, game->ambient_light.color.b);
 	free_split(tmp);
 }

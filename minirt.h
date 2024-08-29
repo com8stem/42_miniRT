@@ -186,6 +186,7 @@ void		parse_cy(char **split, t_rt_info *game, int *cy_count);
 void		parse_pl(char **split, t_rt_info *game, int *pl_count);
 
 int			apply_ambient(t_rt_info *game, int color);
-int			convert_rgb_to_hex_shadow(int r, int g, int b);
-int			convert_rgb_to_hex(int r, int g, int b);
+int			convert_rgb_to_hex_shadow(int r, int g, int b, double brightness);
+int			convert_rgb_to_hex(int r, int g, int b, double brightness);
+void		check_color_range(int r, int g, int b);
 #endif

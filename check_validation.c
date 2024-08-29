@@ -98,6 +98,7 @@ int	check_fileformat(char *filename, t_rt_info *game)
 {
 	int		fd;
 	char	*line;
+	char	*tmp;
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
@@ -105,7 +106,6 @@ int	check_fileformat(char *filename, t_rt_info *game)
 	line = get_next_line(fd);
 	while(line)
 	{
-		char *tmp;
 		tmp = line;
 		if (line)
 			check_line(line, game);

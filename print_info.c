@@ -58,7 +58,7 @@ void	print_rtinfo(t_rt_info *game)
 	{
 		printf("cylinder.center_point: %f, %f, %f\n",
 			game->cylinder[i].center_point.x, game->cylinder[i].center_point.y,
-				game->cylinder[i].center_point.z);
+			game->cylinder[i].center_point.z);
 		printf("orient: %f, %f, %f\n", game->cylinder[i].orient.x,
 		game->cylinder[i].orient.y, game->cylinder[i].orient.z);
 		printf("diameter: %f\n", game->cylinder[i].diameter);
