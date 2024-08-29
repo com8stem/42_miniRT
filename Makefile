@@ -10,12 +10,16 @@ main.c\
 mlx_conf.c\
 read_file.c\
 set_color_map.c\
-window_conf.c
+window_conf.c\
+parse_shape.c\
+parse_shape_sub.c\
+print_info.c
+
 
 OBJS = $(SRCS:.c=.o)
 HEADERS = minirt.h
 CC = cc
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -Werror
 LINUX_MLXFLAGS = -lXext -lX11 -lm
 MLXFLAGS = -Imlx -lmlx -framework OpenGL -framework AppKit -lm #for macOS
 INCDIR = .
