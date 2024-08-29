@@ -6,7 +6,8 @@ t_3d_vec convert_screen_points(int x, int y, double fov)
 	double aspect_ratio = (double)WIDTH / (double)HEIGHT;
 	double scale = tan((fov * 0.5 * 3.14159265358979323846) / 180.0);
 
-	converted_point.x = (2.0 * (double)x / (double)WIDTH - 1.0) * aspect_ratio * scale;
+	converted_point.x = (2.0 * (double)x / (double)WIDTH - 1.0) *
+		aspect_ratio * scale;
 	converted_point.y = (1.0 - 2.0 * (double)y / (double)HEIGHT) * scale;
 	converted_point.z = -1.0;
 

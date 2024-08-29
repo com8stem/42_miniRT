@@ -1,15 +1,15 @@
 #include "minirt.h"
 
-void config_error(char *message)
+void	config_error(char *message)
 {
 	printf("Error\n");
 	printf("%s\n", message);
 	exit(1);
 }
 
-void parse_sp(char **split, t_rt_info *game, int *sp_count)
+void	parse_sp(char **split, t_rt_info *game, int *sp_count)
 {
-	char **tmp;
+	char	**tmp;
 
 	tmp = ft_split(split[1], ',');
 	if (count_token(tmp) != 3)
@@ -31,7 +31,7 @@ void parse_sp(char **split, t_rt_info *game, int *sp_count)
 
 void parse_l(char **split, t_rt_info *game)
 {
-	char **tmp;
+	char	**tmp;
 
 	tmp = ft_split(split[1], ',');
 	if (count_token(tmp) != 3)
@@ -50,9 +50,9 @@ void parse_l(char **split, t_rt_info *game)
 	free_split(tmp);
 }
 
-void parse_c(char **split, t_rt_info *game)
+void	parse_c(char **split, t_rt_info *game)
 {
-	char **tmp;
+	char	**tmp;
 
 	tmp = ft_split(split[1], ',');
 	if (count_token(tmp) != 3)
@@ -74,9 +74,9 @@ void parse_c(char **split, t_rt_info *game)
 	game->camera.fov = ft_atoi(split[3]);
 }
 
-void parse_a(char **split, t_rt_info *game)
+void	parse_a(char **split, t_rt_info *game)
 {
-	char **tmp;
+	char	**tmp;
 
 	game->ambient_light.ratio = ft_atob(split[1]);
 	tmp = ft_split(split[2], ',');

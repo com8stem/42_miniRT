@@ -1,8 +1,8 @@
 #include "minirt.h"
 
-void my_mlx_pixel_put(t_imgdata *img, int x, int y, int color)
+void	my_mlx_pixel_put(t_imgdata *img, int x, int y, int color)
 {
-	char *dst;
+	char	*dst;
 
 	if (!(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0))
 	{
@@ -11,10 +11,10 @@ void my_mlx_pixel_put(t_imgdata *img, int x, int y, int color)
 	}
 }
 
-void drow_image(t_rt_info *game)
+void	drow_image(t_rt_info *game)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 0;
 	while (y < HEIGHT)
@@ -29,10 +29,9 @@ void drow_image(t_rt_info *game)
 	}
 }
 
-
 __attribute__((destructor))
 static void destructor() {
-    system("leaks -q a.out");
+	system("leaks -q a.out");
 }
 
 void initialize_shape(t_rt_info *game)

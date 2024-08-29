@@ -1,5 +1,6 @@
 NAME = miniRT
 SRCS = calc_vector_utils.c\
+calc_vecter_utils_sub.c\
 check_validation.c\
 convert_screen_points.c\
 detection.c\
@@ -10,7 +11,6 @@ main.c\
 mlx_conf.c\
 read_file.c\
 set_color_map.c\
-window_conf.c\
 parse_shape.c\
 parse_shape_sub.c\
 print_info.c\
