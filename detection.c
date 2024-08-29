@@ -10,12 +10,12 @@ bool	cross_detection_ray_and_plain(t_3d_vec ray, t_3d_vec initial_point,
 	s = vec_sub(point_on_plain, initial_point);
 	a = dot_product(ray, normal_plain);
 	if (fabs(a) < EPSILON)
-		return false;
+		return (false);
 	b = dot_product(s, normal_plain);
 	*t = b / a;
 	if (*t < EPSILON)
-		return false;
-	return true;
+		return (false);
+	return (true);
 }
 
 bool	cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point,

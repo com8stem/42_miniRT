@@ -60,7 +60,7 @@ static void	_is_valid_pl(t_rt_info *game, char **tmp, int pl_count)
 
 void parse_pl(char **split, t_rt_info *game, int *pl_count)
 {
-	char **tmp;
+	char	**tmp;
 
 	tmp = ft_split(split[1], ',');
 	if (count_token(tmp) != 3)

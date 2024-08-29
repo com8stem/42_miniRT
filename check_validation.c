@@ -55,18 +55,6 @@ void	free_tokens(char **token)
 	free(token);
 }
 
-void	check_a(char **line)
-{
-	int	i;
-
-	i = 0;
-	while(line[i] != NULL)
-		i++;
-	if (i != 3)
-		show_format_error('u');
-}
-
-
 int check_line(char *line, t_rt_info *game)
 {
 	char	**tokens;

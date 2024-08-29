@@ -13,7 +13,7 @@ t_3d_vec vec_add(t_3d_vec vec1, t_3d_vec vec2)
 	result.y = vec1.y + vec2.y;
 	result.z = vec1.z + vec2.z;
 
-	return result;
+	return (result);
 }
 
 t_3d_vec vec_sub(t_3d_vec vec1, t_3d_vec vec2)

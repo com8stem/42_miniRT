@@ -6,7 +6,8 @@ void	my_mlx_pixel_put(t_imgdata *img, int x, int y, int color)
 
 	if (!(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0))
 	{
-		dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+		dst = img->addr + (y * img->line_length
+			+ x * (img->bits_per_pixel / 8));
 		*(unsigned int *)dst = color;
 	}
 }
@@ -27,11 +28,6 @@ void	drow_image(t_rt_info *game)
 		}
 		y++;
 	}
-}
-
-__attribute__((destructor))
-static void destructor() {
-	system("leaks -q a.out");
 }
 
 void initialize_shape(t_rt_info *game)
@@ -69,6 +65,10 @@ void initialize_shape(t_rt_info *game)
 	}
 }
 
+// __attribute__((destructor))
+// static void destructor() {
+// 	system("leaks -q a.out");
+// }
 
 int	main(int argc, char **argv)
 {
