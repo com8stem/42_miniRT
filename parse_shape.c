@@ -49,6 +49,7 @@ void parse_l(char **split, t_rt_info *game)
 	game->light.color.r = ft_atoi(tmp[0]);
 	game->light.color.g = ft_atoi(tmp[1]);
 	game->light.color.b = ft_atoi(tmp[2]);
+	check_color_range(game->light.color.r, game->light.color.g, game->light.color.b);
 	free_split(tmp);
 	if (game->light.brightness < 0 || game->light.brightness > 1)
 		config_error("Light brightness should be between 0 and 1");

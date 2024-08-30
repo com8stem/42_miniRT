@@ -44,6 +44,8 @@ void parse_cy(char **split, t_rt_info *game, int *cy_count)
 	game->cylinder[*cy_count].color.g = ft_atoi(tmp[1]);
 	game->cylinder[*cy_count].color.b = ft_atoi(tmp[2]);
 	free_split(tmp);
+	check_color_range(game->cylinder[*cy_count].color.r,
+		game->cylinder[*cy_count].color.g, game->cylinder[*cy_count].color.b);
 	_is_valid_cy(game, tmp, *cy_count, game->cylinder[*cy_count]);
 	*cy_count += 1;
 }
