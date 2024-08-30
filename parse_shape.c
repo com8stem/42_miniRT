@@ -49,6 +49,7 @@ void parse_l(char **split, t_rt_info *game)
 	game->light.color.r = ft_atoi(tmp[0]);
 	game->light.color.g = ft_atoi(tmp[1]);
 	game->light.color.b = ft_atoi(tmp[2]);
+	check_color_range(game->light.color.r, game->light.color.g, game->light.color.b);
 	free_split(tmp);
 	if (game->light.brightness < 0 || game->light.brightness > 1)
 		config_error("Light brightness should be between 0 and 1");
@@ -76,8 +77,6 @@ void	parse_c(char **split, t_rt_info *game)
 		&& game->camera.orient.z == 0)
 		config_error("Camera orient is wrong");
 	game->camera.fov = ft_atoi(split[3]);
-	if (game->camera.fov <= 0 || game->camera.fov >= 180)
-		config_error("Camera fov should be between 0 and 180");
 }
 
 void	parse_a(char **split, t_rt_info *game)
