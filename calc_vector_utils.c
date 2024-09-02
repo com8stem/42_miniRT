@@ -5,9 +5,9 @@ double	norm(t_3d_vec vec)
 	return (sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z));
 }
 
-t_3d_vec vec_add(t_3d_vec vec1, t_3d_vec vec2)
+t_3d_vec	vec_add(t_3d_vec vec1, t_3d_vec vec2)
 {
-	t_3d_vec result;
+	t_3d_vec	result;
 
 	result.x = vec1.x + vec2.x;
 	result.y = vec1.y + vec2.y;
@@ -16,7 +16,7 @@ t_3d_vec vec_add(t_3d_vec vec1, t_3d_vec vec2)
 	return (result);
 }
 
-t_3d_vec vec_sub(t_3d_vec vec1, t_3d_vec vec2)
+t_3d_vec	vec_sub(t_3d_vec vec1, t_3d_vec vec2)
 {
 	t_3d_vec	result;
 
@@ -40,7 +40,7 @@ t_3d_vec	vec_scalar_mult(t_3d_vec vec, double scalar)
 
 t_3d_vec	vec_normalize(t_3d_vec vec)
 {
-	double length;
+	double	length;
 	
 	length = norm(vec);
 	return (vec_scalar_mult(vec, 1 / length));

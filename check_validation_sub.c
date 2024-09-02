@@ -29,7 +29,7 @@ void	show_format_error(char c)
 
 int check_filename(char *filename)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!filename || ft_strlen(filename) <= 3)

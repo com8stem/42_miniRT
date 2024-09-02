@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_shape_sub.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/02 07:15:15 by yutakagi          #+#    #+#             */
+/*   Updated: 2024/09/02 07:27:04 by yutakagi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 void	check_color_range(int r, int g, int b)
@@ -19,7 +31,7 @@ static void	_is_valid_cy(t_rt_info *game, char **tmp, int cy_count, t_cylinder t
 	return ;
 }
 
-void parse_cy(char **split, t_rt_info *game, int *cy_count)
+void	parse_cy(char **split, t_rt_info *game, int *cy_count)
 {
 	char	**tmp;
 
@@ -58,7 +70,7 @@ static void	_is_valid_pl(t_rt_info *game, char **tmp, int pl_count)
 	return ;
 }
 
-void parse_pl(char **split, t_rt_info *game, int *pl_count)
+void	parse_pl(char **split, t_rt_info *game, int *pl_count)
 {
 	char	**tmp;
 

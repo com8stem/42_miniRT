@@ -15,7 +15,9 @@ set_color_map.c\
 parse_shape.c\
 parse_shape_sub.c\
 print_info.c\
-color_utils.c
+color_utils.c\
+set_color_utils.c\
+set_color_detect_utils.c
 
 
 OBJS = $(SRCS:.c=.o)

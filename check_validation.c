@@ -1,3 +1,4 @@
+
 #include "minirt.h"
 
 int	check_line(char *line, t_rt_info *game)
