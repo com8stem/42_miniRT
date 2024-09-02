@@ -6,11 +6,12 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 06:30:07 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/02 07:51:27 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/02 07:52:55 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
 t_3d_vec	local_to_global(t_3d_vec local_point, t_camera camera)
 {
 	t_3d_vec	global_point;
