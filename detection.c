@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 06:29:54 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/02 06:29:57 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/04 10:40:09 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,36 +33,59 @@ bool	cross_detection_ray_and_plain(t_3d_vec ray, t_3d_vec initial_point,
 bool	cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point,
 			t_3d_vec center_point,double radius, double *t, bool *is_front)
 {
-	double a;
-	double b;
-	double c;
-	double D;
-	t_3d_vec s;
+	double		a;
+	double		b;
+	double		c;
+	double		D;
+	t_3d_vec	s;
 
 	s = generate_ray(center_point, initial_point);
-
 	a = norm(ray) * norm(ray);
 	b = 2 * (dot_product(s, ray));
 	c = (norm(s) * norm(s)) - (radius * radius);
 	D = (b * b) - (4 * a * c);
 	if (D < EPSILON)
 		return (false);
-	double t1 = (-b - sqrt(D)) / (2 * a);
-	double t2 = (-b + sqrt(D)) / (2 * a);
-	if (t1 > EPSILON)
-		*t = t1;
-	else if (t2 > EPSILON)
-		*t = t2;
-	else 
+	if ((-b - sqrt(D)) / (2 * a) > EPSILON)
+		*t = (-b - sqrt(D)) / (2 * a);
+	else if ((-b + sqrt(D)) / (2 * a) > EPSILON)
+		*t = (-b + sqrt(D)) / (2 * a);
+	else
 		return (false);
-	t_3d_vec intersection_point = vec_add(initial_point, vec_scalar_mult(ray, *t));
-	t_3d_vec normal_at_intersection = vec_sub(intersection_point, center_point);
-	normal_at_intersection = vec_normalize(normal_at_intersection);
-	double dot = dot_product(ray, normal_at_intersection);
-	*is_front = (dot < 0);
+	*is_front = (dot_product(ray, vec_normalize(vec_sub(vec_add(initial_point,
+		vec_scalar_mult(ray, *t)), center_point))) < 0);
 	return (true);
 }
 
+// static bool	evaluate_val(double A, double B, double C, double *t_val)
+// {
+// 	double		D;
+// 	double t1;
+// 	double t2;
+// 	double temp;
+
+// 	if (A < EPSILON)
+// 		return (false);
+// 	D = B * B - 4 * A * C;
+// 	if (D < EPSILON)
+// 		return (false);
+// 	t1 = (-B - sqrt(D)) / (2 * A);
+// 	t2 = (-B + sqrt(D)) / (2 * A);
+// 	if (t1 > t2)
+// 	{
+// 		temp = t1;
+// 		t1 = t2;
+// 		t2 = temp;
+// 	}
+// 	if (t1 < EPSILON)
+// 	{
+// 		t1 = t2;
+// 		if (t1 < EPSILON)
+// 			return (false);
+// 	}
+// 	*t_val = t1;
+// 	return (true);
+// }
 
 bool	cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point,
 	t_3d_vec orient, t_3d_vec center_point, double height, double diameter, double *t)

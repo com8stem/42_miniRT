@@ -6,11 +6,18 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:11:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/02 07:21:34 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/04 10:19:36 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+static bool	_detect_sp(t_rt_info *game, t_detect_status *st, int i)
+{
+	return (cross_detection_ray_and_sphere(st->ray, game->camera.initial_point, 
+			game->sphere[i].center_point, game->sphere[i].diameter / 2,
+			&st->t_sphere, &st->is_front) && st->t_sphere > 0 && st->is_front);
+}
 
 void	detect_sphere_on_ray(t_rt_info *game, t_detect_status *st)
 {
@@ -21,13 +28,12 @@ void	detect_sphere_on_ray(t_rt_info *game, t_detect_status *st)
 	{
 		st->t_sphere = 0;
 		st->is_front = false;
-		if (cross_detection_ray_and_sphere(st->ray, game->camera.initial_point, 
-			game->sphere[i].center_point, game->sphere[i].diameter / 2, &st->t_sphere,
-				&st->is_front) && st->t_sphere > 0 && st->is_front)
+		if (_detect_sp(game, st, i))
 		{
 			st->hit_point = vec_add(game->camera.initial_point,
 				vec_scalar_mult(st->ray, st->t_sphere));
-			st->distance = norm(vec_sub(game->camera.initial_point, st->hit_point));
+			st->distance = norm(vec_sub(game->camera.initial_point,
+				st->hit_point));
 			if (st->distance < st->min_distance)
 			{
 				st->min_distance = st->distance;
@@ -71,6 +77,14 @@ void	detect_plain_on_ray(t_rt_info *gm, t_detect_status *st)
 	}
 }
 
+static bool	_cross_detect_cy(t_rt_info *game, t_detect_status *st, int i)
+{
+	return (cross_detection_ray_and_cylinder(st->ray, game->camera.initial_point,
+			game->cylinder[i].orient, game->cylinder[i].center_point,
+			game->cylinder[i].height, game->cylinder[i].diameter,
+			&st->t_cylinder) && st->t_cylinder > 0);
+}
+
 void	detect_cylinder_on_ray(t_rt_info *game, t_detect_status *st)
 {
 	int	i;
@@ -78,18 +92,17 @@ void	detect_cylinder_on_ray(t_rt_info *game, t_detect_status *st)
 	i = 0;
 	while (i < game->cy_num)
 	{
-		if (cross_detection_ray_and_cylinder(st->ray, game->camera.initial_point,
-			game->cylinder[i].orient, game->cylinder[i].center_point,
-				game->cylinder[i].height, game->cylinder[i].diameter,
-				&st->t_cylinder) && st->t_cylinder > 0)
+		if (_cross_detect_cy(game, st, i))
 		{
 			st->hit_point = vec_add(game->camera.initial_point,
 				vec_scalar_mult(st->ray, st->t_cylinder));
-			st->distance = norm(vec_sub(game->camera.initial_point, st->hit_point));
+			st->distance = norm(vec_sub(game->camera.initial_point,
+				st->hit_point));
 			if (st->distance < st->min_distance)
 			{
 				st->min_distance = st->distance;
-				st->shadow_ray = generate_ray(st->hit_point, game->light.initial_point);
+				st->shadow_ray = generate_ray(st->hit_point,
+					game->light.initial_point);
 				if (!is_in_shadow(st->shadow_ray, st->hit_point, game))
 					set_color(game, st->x, st->y, 'c', i);
 				else

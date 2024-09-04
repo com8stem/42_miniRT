@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:15:15 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/02 07:27:04 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/04 10:21:02 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,31 +70,31 @@ static void	_is_valid_pl(t_rt_info *game, char **tmp, int pl_count)
 	return ;
 }
 
-void	parse_pl(char **split, t_rt_info *game, int *pl_count)
+void	parse_pl(char **split, t_rt_info *game, int *pl)
 {
 	char	**tmp;
 
 	tmp = ft_split(split[1], ',');
 	if (count_token(tmp) != 3)
 		config_error("Plain point format is wrong");
-	game->plain[*pl_count].point.x = ft_atob(tmp[0]);
-	game->plain[*pl_count].point.y = ft_atob(tmp[1]);
-	game->plain[*pl_count].point.z = ft_atob(tmp[2]);
+	game->plain[*pl].point.x = ft_atob(tmp[0]);
+	game->plain[*pl].point.y = ft_atob(tmp[1]);
+	game->plain[*pl].point.z = ft_atob(tmp[2]);
 	free_split(tmp);
 	tmp = ft_split(split[2], ',');
 	if (count_token(tmp) != 3)
 		config_error("Plain normal format is wrong");
-	game->plain[*pl_count].normal.x = ft_atob(tmp[0]);
-	game->plain[*pl_count].normal.y = ft_atob(tmp[1]);
-	game->plain[*pl_count].normal.z = ft_atob(tmp[2]);
+	game->plain[*pl].normal.x = ft_atob(tmp[0]);
+	game->plain[*pl].normal.y = ft_atob(tmp[1]);
+	game->plain[*pl].normal.z = ft_atob(tmp[2]);
 	free_split(tmp);
 	tmp = ft_split(split[3], ',');
-	_is_valid_pl(game, tmp, *pl_count);
-	game->plain[*pl_count].color.r = ft_atoi(tmp[0]);
-	game->plain[*pl_count].color.g = ft_atoi(tmp[1]);
-	game->plain[*pl_count].color.b = ft_atoi(tmp[2]);
+	_is_valid_pl(game, tmp, *pl);
+	game->plain[*pl].color.r = ft_atoi(tmp[0]);
+	game->plain[*pl].color.g = ft_atoi(tmp[1]);
+	game->plain[*pl].color.b = ft_atoi(tmp[2]);
 	free_split(tmp);
-	check_color_range(game->plain[*pl_count].color.r,
-		game->plain[*pl_count].color.g, game->plain[*pl_count].color.b);
-	*pl_count += 1;
+	check_color_range(game->plain[*pl].color.r,
+		game->plain[*pl].color.g, game->plain[*pl].color.b);
+	*pl += 1;
 }
