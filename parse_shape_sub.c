@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:15:15 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/04 10:21:02 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/04 11:03:10 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	check_color_range(int r, int g, int b)
 	return ;
 }
 
-static void	_is_valid_cy(t_rt_info *game, char **tmp, int cy_count, t_cylinder tmp_cy)
+static void	_is_valid_cy(t_rt_info *game, char **tmp, int cy_count,
+							t_cylinder tmp_cy)
 {
 	if (count_token(tmp) != 3 ||(game->cylinder[cy_count].orient.x == 0
 			&& game->cylinder[cy_count].orient.y == 0
