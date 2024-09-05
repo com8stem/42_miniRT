@@ -5,7 +5,9 @@ int start_up_window(t_rt_info *game)
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "miniRT");
 	game->img_data->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	game->img_data->addr = mlx_get_data_addr(game->img_data->img, &(game->img_data->bits_per_pixel), &(game->img_data->line_length), &(game->img_data->endian));
+	game->img_data->addr = mlx_get_data_addr(game->img_data->img,
+		&(game->img_data->bits_per_pixel), &(game->img_data->line_length),
+		&(game->img_data->endian));
 	return (0);
 }
 

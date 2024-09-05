@@ -133,6 +133,22 @@ typedef struct	s_rt_info
 	int				num_ambient;
 }					t_rt_info;
 
+typedef struct	s_detect_status
+{
+	double		t;
+	bool		is_front;
+	int			x;
+	int			y;
+	double		distance;
+	double		min_distance;
+	double		t_sphere;
+	double		t_plain;
+	double		t_cylinder;
+	t_3d_vec	ray;
+	t_3d_vec	hit_point;
+	t_3d_vec	shadow_ray;
+}				t_detect_status;
+
 //get_next_line.c
 char		*get_next_line(int fd);
 
@@ -192,4 +208,12 @@ void		check_color_range(int r, int g, int b);
 
 void		show_format_error(char c);
 void		free_tokens(char **token);
+
+void		detect_sphere_on_ray(t_rt_info *game, t_detect_status *status);
+void		detect_plain_on_ray(t_rt_info *game, t_detect_status *status);
+void		detect_cylinder_on_ray(t_rt_info *game, t_detect_status *status);
+
+bool		is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game);
+void		set_color(t_rt_info *game, int x, int y, char object_type, int i);
+void		set_color_shadow(t_rt_info *game, int x, int y, char object_type, int i);
 #endif
