@@ -64,7 +64,7 @@ int	parse_rtfile(int fd, t_rt_info *game)
 		line = get_next_line(fd);
 		if (line == NULL)
 			break;
-		split = ft_split(line, ' ');
+		split = x_ft_split(line, ' ');
 		free(line);
 		if (split == NULL)
 			break;

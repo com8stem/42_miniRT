@@ -216,4 +216,11 @@ void		detect_cylinder_on_ray(t_rt_info *game, t_detect_status *status);
 bool		is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game);
 void		set_color(t_rt_info *game, int x, int y, char object_type, int i);
 void		set_color_shadow(t_rt_info *game, int x, int y, char object_type, int i);
+
+//wrapper_func.c
+char **x_ft_split(char const *s, char c);
+char *x_ft_substr(char const *s, unsigned int start, size_t len);
+char *x_ft_strjoin(char const *s1, char const *s2);
+void *x_ft_calloc(size_t count, size_t size);
+void *x_malloc(size_t size);
 #endif

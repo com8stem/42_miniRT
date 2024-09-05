@@ -32,9 +32,9 @@ void	drow_image(t_rt_info *game)
 
 static void	_initialize_shape(t_rt_info *game)
 {
-	game->sphere = ft_calloc(game->sp_num, sizeof(t_sphere));
-	game->plain = ft_calloc(game->pl_num, sizeof(t_plain));
-	game->cylinder = ft_calloc(game->cy_num, sizeof(t_cylinder));
+	game->sphere = x_ft_calloc(game->sp_num, sizeof(t_sphere));
+	game->plain = x_ft_calloc(game->pl_num, sizeof(t_plain));
+	game->cylinder = x_ft_calloc(game->cy_num, sizeof(t_cylinder));
 }
 
 // __attribute__((destructor))

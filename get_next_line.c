@@ -6,7 +6,7 @@ static char	*copy_to_note(int fd, char *note)
 	int		read_bytes;
 	char	*tmp;
 
-	buf = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	buf = (char *)x_malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (buf == NULL)
 		return (NULL);
 	read_bytes = 1;
@@ -45,9 +45,9 @@ char	*get_next_line(int fd)
 		result_len = ft_strlen(note);
 	else
 		result_len = ft_strchr(note, '\n') - note + 1;
-	result = ft_substr(note, 0, result_len);
+	result = x_ft_substr(note, 0, result_len);
 	tmp = note;
-	note = ft_substr(note, result_len, ft_strlen(note) - result_len);
+	note = x_ft_substr(note, result_len, ft_strlen(note) - result_len);
 	free(tmp);
 	return (result);
 }

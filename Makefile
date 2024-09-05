@@ -17,7 +17,8 @@ parse_shape_sub.c\
 print_info.c\
 color_utils.c\
 set_color_utils.c\
-set_color_detect_utils.c
+set_color_detect_utils.c\
+wrapper_func.c
 
 
 OBJS = $(SRCS:.c=.o)

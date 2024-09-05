@@ -36,14 +36,14 @@ void	parse_cy(char **split, t_rt_info *game, int *cy_count)
 {
 	char	**tmp;
 
-	tmp = ft_split(split[1], ',');
+	tmp = x_ft_split(split[1], ',');
 	if (count_token(tmp) != 3)
 		config_error("Cylinder center point format is wrong");
 	game->cylinder[*cy_count].center_point.x = ft_atob(tmp[0]);
 	game->cylinder[*cy_count].center_point.y = ft_atob(tmp[1]);
 	game->cylinder[*cy_count].center_point.z = ft_atob(tmp[2]);
 	free_split(tmp);
-	tmp = ft_split(split[2], ',');
+	tmp = x_ft_split(split[2], ',');
 	if (count_token(tmp) != 3)
 		config_error("Cylinder orient format is wrong");
 	game->cylinder[*cy_count].orient.x = ft_atob(tmp[0]);
@@ -52,7 +52,7 @@ void	parse_cy(char **split, t_rt_info *game, int *cy_count)
 	free_split(tmp);
 	game->cylinder[*cy_count].diameter = ft_atob(split[3]);
 	game->cylinder[*cy_count].height = ft_atob(split[4]);
-	tmp = ft_split(split[5], ',');
+	tmp = x_ft_split(split[5], ',');
 	game->cylinder[*cy_count].color.r = ft_atoi(tmp[0]);
 	game->cylinder[*cy_count].color.g = ft_atoi(tmp[1]);
 	game->cylinder[*cy_count].color.b = ft_atoi(tmp[2]);
@@ -77,21 +77,21 @@ void	parse_pl(char **split, t_rt_info *game, int *pl)
 {
 	char	**tmp;
 
-	tmp = ft_split(split[1], ',');
+	tmp = x_ft_split(split[1], ',');
 	if (count_token(tmp) != 3)
 		config_error("Plain point format is wrong");
 	game->plain[*pl].point.x = ft_atob(tmp[0]);
 	game->plain[*pl].point.y = ft_atob(tmp[1]);
 	game->plain[*pl].point.z = ft_atob(tmp[2]);
 	free_split(tmp);
-	tmp = ft_split(split[2], ',');
+	tmp = x_ft_split(split[2], ',');
 	if (count_token(tmp) != 3)
 		config_error("Plain normal format is wrong");
 	game->plain[*pl].normal.x = ft_atob(tmp[0]);
 	game->plain[*pl].normal.y = ft_atob(tmp[1]);
 	game->plain[*pl].normal.z = ft_atob(tmp[2]);
 	free_split(tmp);
-	tmp = ft_split(split[3], ',');
+	tmp = x_ft_split(split[3], ',');
 	_is_valid_pl(game, tmp, *pl);
 	game->plain[*pl].color.r = ft_atoi(tmp[0]);
 	game->plain[*pl].color.g = ft_atoi(tmp[1]);
