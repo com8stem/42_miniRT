@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 06:29:54 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/06 06:33:51 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/06 07:12:56 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,75 +57,4 @@ bool	cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point,
 	*is_front = (dot_product(ray, vec_normalize(vec_sub(vec_add(initial_point,
 		vec_scalar_mult(ray, *t)), center_point))) < 0);
 	return (true);
-}
-
-static bool	evaluate_val(double A, double B, double C, double *t_val)
-{
-	double		D;
-	double t1;
-	double t2;
-	double temp;
-
-	if (A < EPSILON)
-		return (false);
-	D = B * B - 4 * A * C;
-	if (D < EPSILON)
-		return (false);
-	t1 = (-B - sqrt(D)) / (2 * A);
-	t2 = (-B + sqrt(D)) / (2 * A);
-	if (t1 > t2)
-	{
-		temp = t1;
-		t1 = t2;
-		t2 = temp;
-	}
-	if (t1 < EPSILON)
-	{
-		t1 = t2;
-		if (t1 < EPSILON)
-			return (false);
-	}
-	*t_val = t1;
-	return (true);
-}
-
-bool	cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point,
-			t_cylinder *cy, double *t)
-{
-	t_3d_vec n = vec_scalar_mult(cy->orient, 1 / norm(cy->orient));
-	t_3d_vec oc = vec_sub(initial_point, cy->center_point);
-	t_3d_vec cross_rn = cross_product(ray, n);
-	t_3d_vec cross_ocn = cross_product(oc, n);
-	bool hit  = false;
-	double min_dis = INFINITY;
-
-	double t1;
-	if (!evaluate_val(norm(cross_rn) * norm(cross_rn), 2 * dot_product(cross_rn, cross_ocn), norm(cross_ocn) * norm(cross_ocn) - (cy->diameter / 2.0) * (cy->diameter / 2.0), &t1))
-		return (false);
-	t_3d_vec p = vec_add(initial_point, vec_scalar_mult(ray, t1));
-	double h = dot_product(vec_sub(p, cy->center_point), n);
-	if (h > -1 * EPSILON && h < cy->height + EPSILON)
-	{
-		min_dis = t1;
-		hit = true;
-	}
-	double t_bottom = dot_product(vec_sub(cy->center_point, initial_point), n) / dot_product(ray, n);
-	t_3d_vec p_bottom = vec_add(initial_point, vec_scalar_mult(ray, t_bottom));
-	if (t_bottom > EPSILON && norm(vec_sub(p_bottom, cy->center_point)) <= cy->diameter / 2.0)
-	{
-		if (t_bottom < min_dis)
-			min_dis = t_bottom;
-		hit= true;
-	}
-	t_3d_vec top_center = vec_add(cy->center_point, vec_scalar_mult(n, cy->height));
-	double t_top = dot_product(vec_sub(top_center, initial_point), n) / dot_product(ray, n);
-	t_3d_vec p_top = vec_add(initial_point, vec_scalar_mult(ray, t_top));
-	if (t_top > EPSILON && norm(vec_sub(p_top, top_center)) <= cy->diameter / 2.0)
-	{
-		if (t_top < min_dis)
-			min_dis = t_top;
-		hit =  true;
-	}
-	*t = min_dis;
-	return (hit);
 }
