@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:08:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/04 10:09:57 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/06 06:36:59 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ bool	is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point,
 	while (j < game->cy_num)
 	{
 		if (cross_detection_ray_and_cylinder(shadow_ray, hit_point,
-			game->cylinder[j].orient,game->cylinder[j].center_point,
-			game->cylinder[j].height, game->cylinder[j].diameter, &t)
+			&game->cylinder[j], &t)
 			&& t > EPSILON)
 			return (true);
 		j++;

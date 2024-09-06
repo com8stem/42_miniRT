@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:11:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/04 10:19:36 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/06 06:35:49 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ void	detect_sphere_on_ray(t_rt_info *game, t_detect_status *st)
 		{
 			st->hit_point = vec_add(game->camera.initial_point,
 				vec_scalar_mult(st->ray, st->t_sphere));
-			st->distance = norm(vec_sub(game->camera.initial_point,
-				st->hit_point));
+			st->distance = norm(vec_sub(game->camera.initial_point, st->hit_point));
 			if (st->distance < st->min_distance)
 			{
 				st->min_distance = st->distance;
@@ -80,9 +79,7 @@ void	detect_plain_on_ray(t_rt_info *gm, t_detect_status *st)
 static bool	_cross_detect_cy(t_rt_info *game, t_detect_status *st, int i)
 {
 	return (cross_detection_ray_and_cylinder(st->ray, game->camera.initial_point,
-			game->cylinder[i].orient, game->cylinder[i].center_point,
-			game->cylinder[i].height, game->cylinder[i].diameter,
-			&st->t_cylinder) && st->t_cylinder > 0);
+			&game->cylinder[i], &st->t_cylinder) && st->t_cylinder > 0);
 }
 
 void	detect_cylinder_on_ray(t_rt_info *game, t_detect_status *st)

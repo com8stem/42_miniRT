@@ -36,7 +36,8 @@ int check_filename(char *filename)
 		show_format_error('f');
 	while (filename[i])
 		i++;
-	if (filename[i - 1] != 't' || filename[i - 2] != 'r' || filename[i - 3] != '.')
+	if (filename[i - 1] != 't' || filename[i - 2] != 'r'
+		|| filename[i - 3] != '.')
 		show_format_error('f');
 	return (0);	
 }

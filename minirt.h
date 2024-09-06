@@ -187,7 +187,8 @@ int			set_color_map(t_rt_info *game);
 //detection.c
 bool		cross_detection_ray_and_plain(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec normal_plain, t_3d_vec point_on_plain, double *t);
 bool		cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec center_point, double radius, double *t, bool *is_front);
-bool		cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point, t_3d_vec orient, t_3d_vec center_point, double height, double diameter, double *t);
+bool		cross_detection_ray_and_cylinder(t_3d_vec ray, t_3d_vec initial_point,
+			t_cylinder *cy, double *t);
 
 void		config_error(char *message);
 void		parse_sp(char **split, t_rt_info *game, int *sp_count);
