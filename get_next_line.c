@@ -1,4 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/07 15:00:15 by kishizu           #+#    #+#             */
+/*   Updated: 2024/09/07 15:08:49 by kishizu          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
+
+static char	*x_ft_strjoin(char const *s1, char const *s2)
+{
+	int		total_len;
+	char	*result;
+
+	total_len = ft_strlen(s1) + ft_strlen(s2);
+	if (total_len == 0)
+		return (NULL);
+	result = (char *)x_malloc(total_len + 1);
+	if (result == NULL)
+		return (NULL);
+	if (s1 == NULL && s2 != NULL)
+		ft_strlcpy (result, s2, ft_strlen(s2) + 1);
+	else if (s1 != NULL && s2 != NULL)
+	{
+		ft_strlcpy (result, s1, ft_strlen(s1) + 1);
+		ft_strlcat (result + ft_strlen(s1), s2, ft_strlen(s2) + 1);
+	}
+	return (result);
+}
 
 static char	*copy_to_note(int fd, char *note)
 {
@@ -22,7 +55,7 @@ static char	*copy_to_note(int fd, char *note)
 		}
 		buf[read_bytes] = '\0';
 		tmp = note;
-		note = ft_strjoin(note, buf);
+		note = x_ft_strjoin(note, buf);
 		free(tmp);
 	}
 	free(buf);
