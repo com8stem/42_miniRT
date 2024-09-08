@@ -6,24 +6,24 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 06:29:54 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/06 07:12:56 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/08 11:10:19 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 bool	cross_detection_ray_and_plain(t_3d_vec ray, t_3d_vec initial_point,
-			t_3d_vec normal_plain, t_3d_vec point_on_plain, double *t)
+			t_plain *pl, double *t)
 {
 	double		a;
 	double		b;
 	t_3d_vec	s;
 
-	s = vec_sub(point_on_plain, initial_point);
-	a = dot_product(ray, normal_plain);
+	s = vec_sub(pl->point, initial_point);
+	a = dot_product(ray, pl->normal);
 	if (fabs(a) < EPSILON)
 		return (false);
-	b = dot_product(s, normal_plain);
+	b = dot_product(s, pl->normal);
 	*t = b / a;
 	if (*t < EPSILON)
 		return (false);

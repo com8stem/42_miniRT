@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:11:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/08 10:38:24 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/08 11:10:32 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	detect_plain_on_ray(t_rt_info *gm, t_detect_status *st)
 	while (i < gm->pl_num)
 	{
 		if (cross_detection_ray_and_plain(st->ray, gm->camera.initial_point,
-			gm->plain[i].normal, gm->plain[i].point, &st->t_plain)
+			&gm->plain[i], &st->t_plain)
 			&& st->t_plain > 0)
 		{
 			st->hit_point = vec_add(gm->camera.initial_point,

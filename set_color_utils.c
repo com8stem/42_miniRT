@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:08:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/08 10:36:05 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/08 11:11:08 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ bool	is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point,
 	j = 0;
 	while (j < game->pl_num)
 	{
-		if (cross_detection_ray_and_plain(shadow_ray, hit_point, game->
-			plain[j].normal, game->plain[j].point, &t) && t > EPSILON)
+		if (cross_detection_ray_and_plain(shadow_ray, hit_point, &game->
+			plain[j], &t) && t > EPSILON)
 			return (true);
 		j++;
 	}
