@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:08:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/06 06:36:59 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/08 10:36:05 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ bool	is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point,
 	return (false);
 }
 
-void	set_color(t_rt_info *game, int x, int y, char object_type, int i)
+void	set_color(t_rt_info *game, t_detect_status *st, char object_type, int i)
 {
 	int	color;
 
@@ -88,10 +88,10 @@ void	set_color(t_rt_info *game, int x, int y, char object_type, int i)
 	}
 	else
 		color = BACKGROUND_COLOR;
-	game->color_map[y][x] = color;
+	game->color_map[st->y][st->x] = color;
 }
 
-void	set_color_shadow(t_rt_info *game, int x, int y, char object_type, int i)
+void	set_color_shadow(t_rt_info *game, t_detect_status *st, char object_type, int i)
 {
 	int	color;
 
@@ -109,6 +109,6 @@ void	set_color_shadow(t_rt_info *game, int x, int y, char object_type, int i)
 				game->light.brightness);
 	else
 		color = BACKGROUND_COLOR;
-	game->color_map[y][x] = color;
+	game->color_map[st->y][st->x] = color;
 }
 

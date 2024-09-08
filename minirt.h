@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:01:32 by kishizu           #+#    #+#             */
-/*   Updated: 2024/09/07 15:12:39 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/08 10:35:54 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,9 +235,9 @@ void				detect_cylinder_on_ray(t_rt_info *game,
 
 bool				is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point,
 						t_rt_info *game);
-void				set_color(t_rt_info *game, int x, int y, char object_type,
+void				set_color(t_rt_info *game, t_detect_status *st, char object_type,
 						int i);
-void				set_color_shadow(t_rt_info *game, int x, int y,
+void				set_color_shadow(t_rt_info *game, t_detect_status *st,
 						char object_type, int i);
 
 // wrapper_func.c

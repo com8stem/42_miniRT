@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:11:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/06 06:35:49 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/08 10:38:24 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	detect_sphere_on_ray(t_rt_info *game, t_detect_status *st)
 				st->min_distance = st->distance;
 				st->shadow_ray = generate_ray(st->hit_point, game->light.initial_point);
 				if (!is_in_shadow(st->shadow_ray, st->hit_point, game))
-					set_color(game, st->x, st->y, 's',i);
+					set_color(game, st, 's',i);
 				else
-					set_color_shadow(game, st->x, st->y, 's',i);
+					set_color_shadow(game, st, 's',i);
 			}
 		}
 		i++;
@@ -67,9 +67,9 @@ void	detect_plain_on_ray(t_rt_info *gm, t_detect_status *st)
 				st->shadow_ray = generate_ray(st->hit_point,
 					gm->light.initial_point);
 				if (!is_in_shadow(st->shadow_ray, st->hit_point, gm))
-					set_color(gm, st->x, st->y, 'p', i);
+					set_color(gm, st, 'p', i);
 				else
-					set_color_shadow(gm, st->x, st->y, 'p', i);
+					set_color_shadow(gm, st, 'p', i);
 			}
 		}
 		i++;
@@ -101,9 +101,9 @@ void	detect_cylinder_on_ray(t_rt_info *game, t_detect_status *st)
 				st->shadow_ray = generate_ray(st->hit_point,
 					game->light.initial_point);
 				if (!is_in_shadow(st->shadow_ray, st->hit_point, game))
-					set_color(game, st->x, st->y, 'c', i);
+					set_color(game, st, 'c', i);
 				else
-					set_color_shadow(game, st->x, st->y, 'c', i);
+					set_color_shadow(game, st, 'c', i);
 			}
 		}
 		i++;
