@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yutakagi <yutakagi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 06:30:16 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/10 17:39:02 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:54:01 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	read_rtfile(char *filename, t_rt_info *game)
 
 	fd = file_open(filename);
 	parse_rtfile(fd, game);
-	print_rtinfo(game);
 	close(fd);
 	return (0);
 }

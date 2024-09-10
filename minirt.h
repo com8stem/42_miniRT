@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yutakagi <yutakagi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:01:32 by kishizu           #+#    #+#             */
-/*   Updated: 2024/09/10 17:40:14 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:55:02 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,6 @@ void				parse_l(char **split, t_rt_info *game);
 void				parse_c(char **split, t_rt_info *game);
 void				parse_a(char **split, t_rt_info *game);
 
-void				print_rtinfo(t_rt_info *game);
 void				free_split(char **split);
 int					count_token(char **line);
 void				parse_cy(char **split, t_rt_info *game, int *cy_count);
