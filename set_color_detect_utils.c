@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:11:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/10 08:16:16 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/10 08:33:42 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 static bool	_detect_sp(t_rt_info *game, t_detect_status *st, int i)
 {
 	return (cross_detection_ray_and_sphere(st->ray, game->camera.initial_point, 
-			&game->sphere[i],
-			&st->t_sphere, &st->is_front) && st->t_sphere > 0 && st->is_front);
+			&game->sphere[i], st) && st->t_sphere > 0 && st->is_front);
 }
 
 void	detect_sphere_on_ray(t_rt_info *game, t_detect_status *st)

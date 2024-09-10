@@ -6,14 +6,14 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:08:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/10 08:17:20 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/10 08:37:09 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 static bool	_shadow_sphere(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game,
-							bool *is_front, double *t)
+							t_detect_status *st)
 {
 	int			j;
 	t_3d_vec	hit_point_offset;
@@ -25,8 +25,7 @@ static bool	_shadow_sphere(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *g
 			vec_scalar_mult(vec_sub(hit_point,
 			game->sphere[j].center_point), 1e-3));
 		if (cross_detection_ray_and_sphere(shadow_ray, hit_point_offset,
-			&game->sphere[j], t,
-			is_front) && *t >  EPSILON && *is_front)
+			&game->sphere[j], st) && st->t_sphere >  EPSILON && st->is_front)
 			return (true);
 		j++;
 	}
@@ -36,11 +35,14 @@ static bool	_shadow_sphere(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *g
 bool	is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point,
 						t_rt_info *game)
 {
-	double	t;
 	int		j;
-	bool	is_front;
+	t_detect_status	st;
+	double	t;
 
-	if (_shadow_sphere(shadow_ray, hit_point, game, &is_front, &t))
+	st.min_distance = INFINITY;
+	st.is_front = false;
+	st.t_sphere = 0;
+	if (_shadow_sphere(shadow_ray, hit_point, game, &st))
 		return (true);
 	j = 0;
 	while (j < game->pl_num)
