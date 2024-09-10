@@ -6,6 +6,7 @@ check_validation_sub.c\
 convert_screen_points.c\
 detection.c\
 detection_cy.c\
+detection_cy_utils.c\
 ft_atob.c\
 generate_ray.c\
 get_next_line.c\

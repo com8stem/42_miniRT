@@ -6,7 +6,7 @@
 /*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 06:30:24 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/10 16:00:34 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/10 16:43:59 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	print_rtinfo_sub(t_rt_info *game)
 
 void	print_rtinfo(t_rt_info *game)
 {
-	int i;
+	int	i;
 
 	print_rtinfo_sub(game);
 	print_rtinfo_subsub(game);

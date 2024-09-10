@@ -6,7 +6,7 @@
 /*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:59:24 by kishizu           #+#    #+#             */
-/*   Updated: 2024/09/10 15:59:27 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/10 16:35:56 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ double	ft_atob(char *str)
 	i = 0;
 	while (_ft_is_space(str[i]))
 		i++;
-	sign = judge_sign(str[i], &str);
+	sign = _judge_sign(str[i], &str);
 	while (ft_isdigit(str[i]))
 		result = result * 10.0 + (str[i++] - '0');
 	if (str[i++] == '.')

@@ -6,7 +6,7 @@
 /*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:08:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/10 16:00:47 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/10 16:49:34 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ bool	is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game)
 	t_detect_status	st;
 	double			t;
 
-	st.min_distance = INFINITY;
 	st.is_front = false;
 	st.t_sphere = 0;
 	if (_shadow_sphere(shadow_ray, hit_point, game, &st))
@@ -65,6 +64,7 @@ void	set_color(t_rt_info *game, t_detect_status *st, char object_type, int i)
 {
 	int	color;
 
+	color = BACKGROUND_COLOR;
 	if (object_type == 's')
 	{
 		color = convert_rgb_to_hex(game->sphere[i].color.r,
@@ -86,8 +86,6 @@ void	set_color(t_rt_info *game, t_detect_status *st, char object_type, int i)
 				game->light.brightness);
 		color = apply_ambient(game, color);
 	}
-	else
-		color = BACKGROUND_COLOR;
 	game->color_map[st->y][st->x] = color;
 }
 

@@ -6,7 +6,7 @@
 /*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:15:31 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/10 16:01:22 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/10 16:39:37 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	convert_rgb_to_hex_shadow(int r, int g, int b, double brightness)
 		g = 255;
 	if (b > 255)
 		b = 255;
-	return ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF);
+	return (((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF));
 }
 
 int	convert_rgb_to_hex(int r, int g, int b, double brightness)
@@ -54,5 +54,5 @@ int	convert_rgb_to_hex(int r, int g, int b, double brightness)
 	r = (int)(r * brightness);
 	g = (int)(g * brightness);
 	b = (int)(b * brightness);
-	return ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF);
+	return (((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF));
 }

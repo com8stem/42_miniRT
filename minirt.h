@@ -6,7 +6,7 @@
 /*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:01:32 by kishizu           #+#    #+#             */
-/*   Updated: 2024/09/10 16:00:13 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/10 16:33:48 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,12 @@ typedef struct s_detect_status
 	t_3d_vec		shadow_ray;
 }					t_detect_status;
 
+typedef struct s_cy_status
+{
+	double			min_dis;
+	bool			hit;
+}					t_cy_status;
+
 // get_next_line.c
 char				*get_next_line(int fd);
 
@@ -203,6 +209,8 @@ bool				cross_detection_ray_and_sphere(t_3d_vec ray,
 						t_detect_status *st);
 bool				cross_detection_ray_and_cylinder(t_3d_vec ray,
 						t_3d_vec initial_point, t_cylinder *cy, double *t);
+
+bool				evaluate_val(double a, double b, double c, double *t_val);
 
 void				config_error(char *message);
 void				parse_sp(char **split, t_rt_info *game, int *sp_count);

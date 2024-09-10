@@ -6,7 +6,7 @@
 /*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 15:59:04 by kishizu           #+#    #+#             */
-/*   Updated: 2024/09/10 16:01:17 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/10 16:39:03 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int	check_filename(char *filename)
 		show_format_error('f');
 	while (filename[i])
 		i++;
-	if (filename[i - 1] != 't' || filename[i - 2] != 'r' || filename[i
-		- 3] != '.')
+	if (filename[i - 1] != 't' || filename[i - 2] != 'r'
+		|| filename[i - 3] != '.')
 		show_format_error('f');
 	return (0);
 }

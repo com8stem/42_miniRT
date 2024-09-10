@@ -6,7 +6,7 @@
 /*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:15:15 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/10 16:00:26 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/10 16:57:51 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ static void	_is_valid_cy(t_rt_info *game, char **tmp, int cy_count,
 	return ;
 }
 
+static void	set_val(char **tmp, int *cy_count, t_rt_info *game)
+{
+	game->cylinder[*cy_count].center_point.x = ft_atob(tmp[0]);
+	game->cylinder[*cy_count].center_point.y = ft_atob(tmp[1]);
+	game->cylinder[*cy_count].center_point.z = ft_atob(tmp[2]);
+}
+
 void	parse_cy(char **split, t_rt_info *game, int *cy_count)
 {
 	char	**tmp;
@@ -39,9 +46,7 @@ void	parse_cy(char **split, t_rt_info *game, int *cy_count)
 	tmp = x_ft_split(split[1], ',');
 	if (count_token(tmp) != 3)
 		config_error("Cylinder center point format is wrong");
-	game->cylinder[*cy_count].center_point.x = ft_atob(tmp[0]);
-	game->cylinder[*cy_count].center_point.y = ft_atob(tmp[1]);
-	game->cylinder[*cy_count].center_point.z = ft_atob(tmp[2]);
+	set_val(tmp, cy_count, game);
 	free_split(tmp);
 	tmp = x_ft_split(split[2], ',');
 	if (count_token(tmp) != 3)
