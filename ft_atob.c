@@ -7,7 +7,19 @@ static int	_ft_is_space(int n)
 	return (0);
 }
 
-double ft_atob(const char *str)
+static double	_judge_sign(const char c, char **ptr)
+{
+	if (c == '-')
+	{
+		*ptr = *ptr + 1;
+		return (-1.0);
+	}
+	else if (c == '+')
+		*ptr = *ptr + 1;
+	return (1.0);
+}
+
+double	ft_atob(char *str)
 {
 	double	result;
 	double	sign;
@@ -20,25 +32,15 @@ double ft_atob(const char *str)
 	i = 0;
 	while (_ft_is_space(str[i]))
 		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign = -1.0;
-		i++;
-	}
+	sign = judge_sign(str[i], &str);
 	while (ft_isdigit(str[i]))
+		result = result * 10.0 + (str[i++] - '0');
+	if (str[i++] == '.')
 	{
-		result = result * 10.0 + (str[i] - '0');
-		i++;
-	}
-	if (str[i] == '.')
-	{
-		i++;
 		while (ft_isdigit(str[i]))
 		{
-			result = result + (str[i] - '0') * factor;
+			result = result + (str[i++] - '0') * factor;
 			factor *= 0.1;
-			i++;
 		}
 	}
 	return (result * sign);

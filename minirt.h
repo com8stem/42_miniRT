@@ -177,7 +177,7 @@ int					close_window(void);
 int					key_hook(int keycode, t_rt_info *game);
 void				set_loop_hook(t_rt_info *game);
 
-double				ft_atob(const char *str);
+double				ft_atob(char *str);
 
 // calc_vector_utils.c
 double				dot_product(t_3d_vec vec1, t_3d_vec vec2);
