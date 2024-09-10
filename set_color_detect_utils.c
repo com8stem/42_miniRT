@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_color_detect_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yutakagi <yutakagi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:11:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/10 16:00:41 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/10 17:39:02 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	detect_sphere_on_ray(t_rt_info *game, t_detect_status *st)
 {
 	int	i;
 
-	i = 0;
-	while (i < game->sp_num)
+	i = -1;
+	while (++i < game->sp_num)
 	{
 		st->t_sphere = 0;
 		st->is_front = false;
@@ -44,7 +44,6 @@ void	detect_sphere_on_ray(t_rt_info *game, t_detect_status *st)
 					set_color_shadow(game, st, 's', i);
 			}
 		}
-		i++;
 	}
 }
 

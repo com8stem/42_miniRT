@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
+/*   By: yutakagi <yutakagi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:01:32 by kishizu           #+#    #+#             */
-/*   Updated: 2024/09/10 10:10:24 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:40:14 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,13 @@ typedef struct s_plain
 	t_3d_vec		normal;
 	t_color			color;
 }					t_plain;
+
+typedef struct s_shape_count
+{
+	int				sp_count;
+	int				pl_count;
+	int				cy_count;
+}					t_shape_count;
 
 typedef struct s_cylinder
 {

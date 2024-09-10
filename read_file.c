@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
+/*   By: yutakagi <yutakagi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 06:30:16 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/10 10:09:26 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:39:02 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-
-typedef struct s_shape_count
-{
-	int	sp_count;
-	int	pl_count;
-	int	cy_count;
-}	t_shape_count;
 
 static void	init_count(t_shape_count *count)
 {
