@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:08:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/08 11:11:08 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/10 08:17:20 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static bool	_shadow_sphere(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *g
 			vec_scalar_mult(vec_sub(hit_point,
 			game->sphere[j].center_point), 1e-3));
 		if (cross_detection_ray_and_sphere(shadow_ray, hit_point_offset,
-			game->sphere[j].center_point, game->sphere[j].diameter / 2, t,
+			&game->sphere[j], t,
 			is_front) && *t >  EPSILON && *is_front)
 			return (true);
 		j++;

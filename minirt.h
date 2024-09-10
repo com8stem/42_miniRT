@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:01:32 by kishizu           #+#    #+#             */
-/*   Updated: 2024/09/08 11:08:35 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/10 08:14:29 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,8 +199,7 @@ int					set_color_map(t_rt_info *game);
 bool				cross_detection_ray_and_plain(t_3d_vec ray,
 						t_3d_vec initial_point, t_plain *pl, double *t);
 bool				cross_detection_ray_and_sphere(t_3d_vec ray,
-						t_3d_vec initial_point, t_3d_vec center_point,
-						double radius, double *t, bool *is_front);
+						t_3d_vec initial_point, t_sphere *sp, double *t, bool *is_front);
 bool				cross_detection_ray_and_cylinder(t_3d_vec ray,
 						t_3d_vec initial_point, t_cylinder *cy, double *t);
 

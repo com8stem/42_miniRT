@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 06:29:54 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/08 11:10:19 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/10 08:20:31 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	cross_detection_ray_and_plain(t_3d_vec ray, t_3d_vec initial_point,
 }
 
 bool	cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point,
-			t_3d_vec center_point,double radius, double *t, bool *is_front)
+			t_sphere *sp, double *t, bool *is_front)
 {
 	double		a;
 	double		b;
@@ -39,12 +39,12 @@ bool	cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point,
 	double		D;
 	t_3d_vec	s;
 
-	s = generate_ray(center_point, initial_point);
+	s = generate_ray(sp->center_point, initial_point);
 	a = norm(ray) * norm(ray);
 	if (a < EPSILON)
 		return (false);
 	b = 2 * (dot_product(s, ray));
-	c = (norm(s) * norm(s)) - (radius * radius);
+	c = (norm(s) * norm(s)) - ((sp->diameter * sp->diameter) / 4.0);
 	D = (b * b) - (4 * a * c);
 	if (D < EPSILON)
 		return (false);
@@ -55,6 +55,6 @@ bool	cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point,
 	else
 		return (false);
 	*is_front = (dot_product(ray, vec_normalize(vec_sub(vec_add(initial_point,
-		vec_scalar_mult(ray, *t)), center_point))) < 0);
+		vec_scalar_mult(ray, *t)), sp->center_point))) < 0);
 	return (true);
 }
