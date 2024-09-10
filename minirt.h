@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:01:32 by kishizu           #+#    #+#             */
-/*   Updated: 2024/09/10 16:33:48 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/10 10:10:24 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,9 @@ int					key_hook(int keycode, t_rt_info *game);
 void				set_loop_hook(t_rt_info *game);
 
 double				ft_atob(char *str);
+int					file_open(char *filename);
+void				free_split(char **split);
+int					count_token(char **line);
 
 // calc_vector_utils.c
 double				dot_product(t_3d_vec vec1, t_3d_vec vec2);

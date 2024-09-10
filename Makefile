@@ -13,6 +13,7 @@ get_next_line.c\
 main.c\
 mlx_conf.c\
 read_file.c\
+read_file_utils.c\
 set_color_map.c\
 parse_shape.c\
 parse_shape_sub.c\
@@ -20,7 +21,8 @@ print_info.c\
 color_utils.c\
 set_color_utils.c\
 set_color_detect_utils.c\
-wrapper_func.c
+wrapper_func.c\
+parse_shape_sub_sub.c\
 
 
 OBJS = $(SRCS:.c=.o)
