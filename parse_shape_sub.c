@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_shape_sub.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
+/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:15:15 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/10 09:57:55 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/10 18:12:14 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	_is_valid_pl(t_rt_info *game, char **tmp, int pl_count)
 	if (count_token(tmp) != 3 || (game->plain[pl_count].normal.x == 0
 			&& game->plain[pl_count].normal.y == 0
 			&& game->plain[pl_count].normal.z == 0))
-		config_error("Plain color format is wrong");
+		config_error("Plain normal format is wrong");
 	return ;
 }
 
