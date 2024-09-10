@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   detection.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
+/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 06:29:54 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/10 08:33:56 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:00:59 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 bool	cross_detection_ray_and_plain(t_3d_vec ray, t_3d_vec initial_point,
-			t_plain *pl, double *t)
+		t_plain *pl, double *t)
 {
 	double		a;
 	double		b;
@@ -31,7 +31,7 @@ bool	cross_detection_ray_and_plain(t_3d_vec ray, t_3d_vec initial_point,
 }
 
 bool	cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point,
-			t_sphere *sp, t_detect_status *st)
+		t_sphere *sp, t_detect_status *st)
 {
 	double		a;
 	double		b;
@@ -54,7 +54,9 @@ bool	cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point,
 		st->t_sphere = (-b + sqrt(D)) / (2 * a);
 	else
 		return (false);
-	st->is_front = (dot_product(ray, vec_normalize(vec_sub(vec_add(initial_point,
-		vec_scalar_mult(ray, st->t)), sp->center_point))) < 0);
+	st->is_front = (dot_product(ray,
+				vec_normalize(vec_sub(vec_add(initial_point,
+							vec_scalar_mult(ray, st->t)),
+						sp->center_point))) < 0);
 	return (true);
 }

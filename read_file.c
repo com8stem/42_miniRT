@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
+/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 06:30:16 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/02 06:30:18 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:00:38 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,18 @@ int	count_token(char **line)
 	int	i;
 
 	i = 0;
-	while(line[i]!=NULL)
+	while (line[i] != NULL)
 		i++;
 	return (i);
 }
 
 int	parse_rtfile(int fd, t_rt_info *game)
 {
-	char *line;
-	char **split;
-	int sp_count;
-	int pl_count;
-	int cy_count;
+	char	*line;
+	char	**split;
+	int		sp_count;
+	int		pl_count;
+	int		cy_count;
 
 	sp_count = 0;
 	pl_count = 0;
@@ -63,11 +63,11 @@ int	parse_rtfile(int fd, t_rt_info *game)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
-			break;
+			break ;
 		split = x_ft_split(line, ' ');
 		free(line);
 		if (split == NULL)
-			break;
+			break ;
 		if (ft_strncmp(split[0], "A", 2) == 0)
 			parse_a(split, game);
 		else if (ft_strncmp(split[0], "C", 2) == 0)

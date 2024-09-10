@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   calc_vector_utils.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/10 15:59:01 by kishizu           #+#    #+#             */
+/*   Updated: 2024/09/10 16:01:14 by kishizu          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 double	norm(t_3d_vec vec)
@@ -12,7 +24,6 @@ t_3d_vec	vec_add(t_3d_vec vec1, t_3d_vec vec2)
 	result.x = vec1.x + vec2.x;
 	result.y = vec1.y + vec2.y;
 	result.z = vec1.z + vec2.z;
-
 	return (result);
 }
 
@@ -23,7 +34,6 @@ t_3d_vec	vec_sub(t_3d_vec vec1, t_3d_vec vec2)
 	result.x = vec1.x - vec2.x;
 	result.y = vec1.y - vec2.y;
 	result.z = vec1.z - vec2.z;
-
 	return (result);
 }
 
@@ -34,14 +44,13 @@ t_3d_vec	vec_scalar_mult(t_3d_vec vec, double scalar)
 	result.x = vec.x * scalar;
 	result.y = vec.y * scalar;
 	result.z = vec.z * scalar;
-
 	return (result);
 }
 
 t_3d_vec	vec_normalize(t_3d_vec vec)
 {
 	double	length;
-	
+
 	length = norm(vec);
 	return (vec_scalar_mult(vec, 1 / length));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_info.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
+/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 06:30:24 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/02 06:30:26 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:00:34 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ static void	print_rtinfo_subsub(t_rt_info *game)
 	i = 0;
 	while (i < game->sp_num)
 	{
-		printf("sphere.center_point: %f, %f, %f\n", game->sphere[i].center_point.x,
-			game->sphere[i].center_point.y, game->sphere[i].center_point.z);
+		printf("sphere.center_point: %f, %f, %f\n",
+			game->sphere[i].center_point.x, game->sphere[i].center_point.y,
+			game->sphere[i].center_point.z);
 		printf("sphere.diameter: %f\n", game->sphere[i].diameter);
 		printf("sphere.color: %d, %d, %d\n", game->sphere[i].color.r,
 			game->sphere[i].color.g, game->sphere[i].color.b);
@@ -60,7 +61,7 @@ static void	print_rtinfo_sub(t_rt_info *game)
 
 void	print_rtinfo(t_rt_info *game)
 {
-	int	i;
+	int i;
 
 	print_rtinfo_sub(game);
 	print_rtinfo_subsub(game);
@@ -71,7 +72,7 @@ void	print_rtinfo(t_rt_info *game)
 			game->cylinder[i].center_point.x, game->cylinder[i].center_point.y,
 			game->cylinder[i].center_point.z);
 		printf("orient: %f, %f, %f\n", game->cylinder[i].orient.x,
-		game->cylinder[i].orient.y, game->cylinder[i].orient.z);
+			game->cylinder[i].orient.y, game->cylinder[i].orient.z);
 		printf("diameter: %f\n", game->cylinder[i].diameter);
 		printf("height: %f\n", game->cylinder[i].height);
 		printf("color: %d, %d, %d\n", game->cylinder[i].color.r,

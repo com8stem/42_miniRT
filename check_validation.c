@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_validation.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/10 15:59:08 by kishizu           #+#    #+#             */
+/*   Updated: 2024/09/10 16:01:19 by kishizu          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minirt.h"
 
@@ -38,7 +49,7 @@ int	check_fileformat(char *filename, t_rt_info *game)
 	if (fd == -1)
 		show_format_error('d');
 	line = get_next_line(fd);
-	while(line)
+	while (line)
 	{
 		tmp = line;
 		if (line)
@@ -47,8 +58,7 @@ int	check_fileformat(char *filename, t_rt_info *game)
 		free(tmp);
 	}
 	free(line);
-	if (game->num_ambient != 1 || game->num_camera != 1
-		|| game->num_light != 1)
+	if (game->num_ambient != 1 || game->num_camera != 1 || game->num_light != 1)
 		show_format_error('u');
 	close(fd);
 	return (0);

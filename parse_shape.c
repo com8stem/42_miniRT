@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_shape.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
+/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 06:30:46 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/02 06:30:48 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:00:30 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	parse_sp(char **split, t_rt_info *game, int *sp_count)
 	*sp_count += 1;
 }
 
-void parse_l(char **split, t_rt_info *game)
+void	parse_l(char **split, t_rt_info *game)
 {
 	char	**tmp;
 
@@ -61,7 +61,8 @@ void parse_l(char **split, t_rt_info *game)
 	game->light.color.r = ft_atoi(tmp[0]);
 	game->light.color.g = ft_atoi(tmp[1]);
 	game->light.color.b = ft_atoi(tmp[2]);
-	check_color_range(game->light.color.r, game->light.color.g, game->light.color.b);
+	check_color_range(game->light.color.r, game->light.color.g,
+		game->light.color.b);
 	free_split(tmp);
 	if (game->light.brightness < 0 || game->light.brightness > 1)
 		config_error("Light brightness should be between 0 and 1");
@@ -106,7 +107,7 @@ void	parse_a(char **split, t_rt_info *game)
 	game->ambient_light.color.b = ft_atoi(tmp[2]);
 	if (game->ambient_light.ratio < 0 || game->ambient_light.ratio > 1)
 		config_error("Ambient light ratio should be between 0 and 1");
-	check_color_range(game->ambient_light.color.r,
-		game->ambient_light.color.g, game->ambient_light.color.b);
+	check_color_range(game->ambient_light.color.r, game->ambient_light.color.g,
+		game->ambient_light.color.b);
 	free_split(tmp);
 }

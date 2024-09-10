@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_shape_sub.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
+/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:15:15 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/04 11:03:10 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:00:26 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	check_color_range(int r, int g, int b)
 }
 
 static void	_is_valid_cy(t_rt_info *game, char **tmp, int cy_count,
-							t_cylinder tmp_cy)
+		t_cylinder tmp_cy)
 {
-	if (count_token(tmp) != 3 ||(game->cylinder[cy_count].orient.x == 0
+	if (count_token(tmp) != 3 || (game->cylinder[cy_count].orient.x == 0
 			&& game->cylinder[cy_count].orient.y == 0
 			&& game->cylinder[cy_count].orient.z == 0)
-			|| game->cylinder[cy_count].height <= 0
-			|| game->cylinder[cy_count].diameter <= 0)
+		|| game->cylinder[cy_count].height <= 0
+		|| game->cylinder[cy_count].diameter <= 0)
 		config_error("Cylinder orinet, height and diameter can not be zero");
 	check_color_range(tmp_cy.color.r, tmp_cy.color.g, tmp_cy.color.b);
 	return ;
@@ -65,10 +65,9 @@ void	parse_cy(char **split, t_rt_info *game, int *cy_count)
 
 static void	_is_valid_pl(t_rt_info *game, char **tmp, int pl_count)
 {
-	if (count_token(tmp) != 3 ||
-		(game->plain[pl_count].normal.x == 0
-		&& game->plain[pl_count].normal.y == 0
-		&& game->plain[pl_count].normal.z == 0))
+	if (count_token(tmp) != 3 || (game->plain[pl_count].normal.x == 0
+			&& game->plain[pl_count].normal.y == 0
+			&& game->plain[pl_count].normal.z == 0))
 		config_error("Plain color format is wrong");
 	return ;
 }
@@ -97,7 +96,7 @@ void	parse_pl(char **split, t_rt_info *game, int *pl)
 	game->plain[*pl].color.g = ft_atoi(tmp[1]);
 	game->plain[*pl].color.b = ft_atoi(tmp[2]);
 	free_split(tmp);
-	check_color_range(game->plain[*pl].color.r,
-		game->plain[*pl].color.g, game->plain[*pl].color.b);
+	check_color_range(game->plain[*pl].color.r, game->plain[*pl].color.g,
+		game->plain[*pl].color.b);
 	*pl += 1;
 }

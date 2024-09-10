@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_validation_sub.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/10 15:59:04 by kishizu           #+#    #+#             */
+/*   Updated: 2024/09/10 16:01:17 by kishizu          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 int	check_argc(int argc)
@@ -16,7 +28,7 @@ void	show_format_error(char c)
 	printf("Error\n");
 	if (c == 'n')
 		printf("Error: File does not exist\n");
-	else if(c == 'r')
+	else if (c == 'r')
 		printf("Error: Resolution not found\n");
 	if (c == 'f')
 		printf("Error: Invalid file extension\n");
@@ -27,7 +39,7 @@ void	show_format_error(char c)
 	exit(1);
 }
 
-int check_filename(char *filename)
+int	check_filename(char *filename)
 {
 	int	i;
 
@@ -36,10 +48,10 @@ int check_filename(char *filename)
 		show_format_error('f');
 	while (filename[i])
 		i++;
-	if (filename[i - 1] != 't' || filename[i - 2] != 'r'
-		|| filename[i - 3] != '.')
+	if (filename[i - 1] != 't' || filename[i - 2] != 'r' || filename[i
+		- 3] != '.')
 		show_format_error('f');
-	return (0);	
+	return (0);
 }
 
 void	free_tokens(char **token)

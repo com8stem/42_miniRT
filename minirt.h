@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
+/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:01:32 by kishizu           #+#    #+#             */
-/*   Updated: 2024/09/10 08:24:00 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:00:13 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,8 @@ int					set_color_map(t_rt_info *game);
 bool				cross_detection_ray_and_plain(t_3d_vec ray,
 						t_3d_vec initial_point, t_plain *pl, double *t);
 bool				cross_detection_ray_and_sphere(t_3d_vec ray,
-						t_3d_vec initial_point, t_sphere *sp, t_detect_status *st);
+						t_3d_vec initial_point, t_sphere *sp,
+						t_detect_status *st);
 bool				cross_detection_ray_and_cylinder(t_3d_vec ray,
 						t_3d_vec initial_point, t_cylinder *cy, double *t);
 
@@ -233,8 +234,8 @@ void				detect_cylinder_on_ray(t_rt_info *game,
 
 bool				is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point,
 						t_rt_info *game);
-void				set_color(t_rt_info *game, t_detect_status *st, char object_type,
-						int i);
+void				set_color(t_rt_info *game, t_detect_status *st,
+						char object_type, int i);
 void				set_color_shadow(t_rt_info *game, t_detect_status *st,
 						char object_type, int i);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
+/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:15:31 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/02 07:15:33 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:01:22 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	apply_ambient(t_rt_info *game, int color)
 	r = r + ((color >> 16) & 0xFF);
 	g = g + ((color >> 8) & 0xFF);
 	b = b + (color & 0xFF);
-	 if (r > 255)
+	if (r > 255)
 		r = 255;
 	if (g > 255)
 		g = 255;
@@ -40,7 +40,6 @@ int	convert_rgb_to_hex_shadow(int r, int g, int b, double brightness)
 	r = (int)(r * SHADOW_FACTOR * brightness);
 	g = (int)(g * SHADOW_FACTOR * brightness);
 	b = (int)(b * SHADOW_FACTOR * brightness);
-
 	if (r > 255)
 		r = 255;
 	if (g > 255)

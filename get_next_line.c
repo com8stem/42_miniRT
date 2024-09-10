@@ -6,7 +6,7 @@
 /*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:00:15 by kishizu           #+#    #+#             */
-/*   Updated: 2024/09/07 15:08:49 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/10 15:59:46 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ static char	*x_ft_strjoin(char const *s1, char const *s2)
 	if (result == NULL)
 		return (NULL);
 	if (s1 == NULL && s2 != NULL)
-		ft_strlcpy (result, s2, ft_strlen(s2) + 1);
+		ft_strlcpy(result, s2, ft_strlen(s2) + 1);
 	else if (s1 != NULL && s2 != NULL)
 	{
-		ft_strlcpy (result, s1, ft_strlen(s1) + 1);
-		ft_strlcat (result + ft_strlen(s1), s2, ft_strlen(s2) + 1);
+		ft_strlcpy(result, s1, ft_strlen(s1) + 1);
+		ft_strlcat(result + ft_strlen(s1), s2, ft_strlen(s2) + 1);
 	}
 	return (result);
 }

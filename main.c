@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/10 15:59:50 by kishizu           #+#    #+#             */
+/*   Updated: 2024/09/10 15:59:57 by kishizu          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 void	my_mlx_pixel_put(t_imgdata *img, int x, int y, int color)
@@ -6,8 +18,8 @@ void	my_mlx_pixel_put(t_imgdata *img, int x, int y, int color)
 
 	if (!(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0))
 	{
-		dst = img->addr + (y * img->line_length
-			+ x * (img->bits_per_pixel / 8));
+		dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel
+					/ 8));
 		*(unsigned int *)dst = color;
 	}
 }
