@@ -27,9 +27,9 @@ parse_shape_sub_sub.c\
 OBJS = $(SRCS:.c=.o)
 HEADERS = minirt.h
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -Ofast
 LINUX_MLXFLAGS = -lXext -lX11 -lm
-MLXFLAGS = -Imlx -lmlx -framework OpenGL -framework AppKit -lm #for macOS
+MLXFLAGS = -Imlx -lmlx -framework OpenGL -framework AppKit -lm -Ofast #for macOS
 INCDIR = .
 LIBDIR = ./libft
 LIBFT = ./libft/libft.a
@@ -66,7 +66,7 @@ clean:
 	@make clean -C $(LIBDIR)
 ifeq ($(UNAME_S), Linux)
 	@echo "Running on Linux"
-	@make clean -C $(MLXDIR)
+
 else ifeq ($(UNAME_S), Darwin)
 	@echo "Running on macOS"
 else

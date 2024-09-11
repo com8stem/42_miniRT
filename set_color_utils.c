@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:08:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/11 13:46:17 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/11 13:54:58 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ bool	is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game)
 	while (j < game->pl_num)
 	{
 		t_3d_vec to_camera = vec_sub(game->camera.initial_point, hit_point);
-		double direct = dot_product(to_camera, game->plain[j].normal);
-		t_3d_vec offset_direction = (direct > 0) ? 
+		t_3d_vec offset_direction = (dot_product(to_camera, game->plain[j].normal) > 0) ? 
 		vec_scalar_mult(game->plain[j].normal, 1e-4) : 
 		vec_scalar_mult(game->plain[j].normal, -1e-4);
 		t_3d_vec offset_hit_point = vec_add(hit_point, offset_direction);
