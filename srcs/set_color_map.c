@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_color_map.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 06:30:07 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/10 16:00:44 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/11 14:31:27 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_3d_vec	ray_from_camera(int x, int y, t_camera camera)
 	t_3d_vec	screen_point_local;
 	t_3d_vec	screen_point_global;
 
-	screen_point_local = convert_screen_points(WIDTH - x - 1, HEIGHT - y - 1,
+	screen_point_local = convert_screen_points(x, HEIGHT - y - 1,
 			camera.fov);
 	screen_point_global = local_to_global(screen_point_local, camera);
 	ray = generate_ray(screen_point_global, camera.initial_point);

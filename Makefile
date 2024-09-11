@@ -64,7 +64,7 @@ clean:
 	@make clean -C $(LIBDIR)
 ifeq ($(UNAME_S), Linux)
 	@echo "Running on Linux"
-	@make clean -C $(MLXDIR)
+
 else ifeq ($(UNAME_S), Darwin)
 	@echo "Running on macOS"
 else
