@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 06:29:54 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/11 13:04:15 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:58:40 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	cross_detection_ray_and_plain(t_3d_vec ray, t_3d_vec initial_point,
 		return (false);
 	b = dot_product(s, pl->normal);
 	*t = b / a;
-	if (*t < EPSILON)
+	if (*t < 0)
 		return (false);
 	return (true);
 }

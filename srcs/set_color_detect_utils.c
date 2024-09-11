@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_color_detect_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yutakagi <yutakagi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:11:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/10 17:39:02 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:52:17 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ void	detect_sphere_on_ray(t_rt_info *game, t_detect_status *st)
 				st->min_distance = st->distance;
 				st->shadow_ray = generate_ray(st->hit_point,
 						game->light.initial_point);
-				if (!is_in_shadow(st->shadow_ray, st->hit_point, game))
+				double light_distance = norm(vec_sub(st->hit_point,
+						game->light.initial_point));
+				if (!is_in_shadow(st->shadow_ray, st->hit_point, game, light_distance))
 					set_color(game, st, 's', i);
 				else
 					set_color_shadow(game, st, 's', i);
@@ -66,7 +68,9 @@ void	detect_plain_on_ray(t_rt_info *gm, t_detect_status *st)
 				st->min_distance = st->distance;
 				st->shadow_ray = generate_ray(st->hit_point,
 						gm->light.initial_point);
-				if (!is_in_shadow(st->shadow_ray, st->hit_point, gm))
+				double light_distance = norm(vec_sub(st->hit_point,
+						gm->light.initial_point));
+				if (!is_in_shadow(st->shadow_ray, st->hit_point, gm, light_distance))
 					set_color(gm, st, 'p', i);
 				else
 					set_color_shadow(gm, st, 'p', i);
@@ -101,7 +105,9 @@ void	detect_cylinder_on_ray(t_rt_info *game, t_detect_status *st)
 				st->min_distance = st->distance;
 				st->shadow_ray = generate_ray(st->hit_point,
 						game->light.initial_point);
-				if (!is_in_shadow(st->shadow_ray, st->hit_point, game))
+				double light_distance = norm(vec_sub(st->hit_point,
+						game->light.initial_point));
+				if (!is_in_shadow(st->shadow_ray, st->hit_point, game, light_distance))
 					set_color(game, st, 'c', i);
 				else
 					set_color_shadow(game, st, 'c', i);

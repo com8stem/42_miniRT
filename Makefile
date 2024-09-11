@@ -26,8 +26,8 @@ SRCS = $(SRC_DIR)/calc_vector_utils.c\
 OBJS = $(SRCS:.c=.o)
 HEADERS = include/minirt.h
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
-LINUX_MLXFLAGS = -lXext -lX11 -lm #for Linux
+CFLAGS = -Wall -Wextra -Werror -Ofast
+LINUX_MLXFLAGS = -lXext -lX11 -lm -Ofast #for Linux
 MLXFLAGS = -Imlx -lmlx -framework OpenGL -framework AppKit -lm #for macOS
 INCDIR = .
 LIBDIR = ./libft
