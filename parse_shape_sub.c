@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   parse_shape_sub.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yutakagi <yutakagi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:15:15 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/10 18:12:14 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/11 15:31:41 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void	_is_valid_cy(t_rt_info *game, char **tmp, int cy_count,
+static void	_is_valid_cy(t_rt_info *game, int cy_count,
 		t_cylinder tmp_cy)
 {
-	if (count_token(tmp) != 3 || (game->cylinder[cy_count].orient.x == 0
+	if ((game->cylinder[cy_count].orient.x == 0
 			&& game->cylinder[cy_count].orient.y == 0
 			&& game->cylinder[cy_count].orient.z == 0)
 		|| game->cylinder[cy_count].height <= 0
@@ -57,7 +57,7 @@ void	parse_cy(char **split, t_rt_info *game, int *cy_count)
 	free_split(tmp);
 	check_color_range(game->cylinder[*cy_count].color.r,
 		game->cylinder[*cy_count].color.g, game->cylinder[*cy_count].color.b);
-	_is_valid_cy(game, tmp, *cy_count, game->cylinder[*cy_count]);
+	_is_valid_cy(game, *cy_count, game->cylinder[*cy_count]);
 	*cy_count += 1;
 }
 
