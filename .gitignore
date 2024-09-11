@@ -1,3 +1,5 @@
 minilibx-linux
 *.rt
 miniRT
+*.a
+*.o
