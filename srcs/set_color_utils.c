@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:08:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/11 19:36:38 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:16:58 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@ static double calc_dis(t_3d_vec hit_point, t_3d_vec shadow_ray, double t)
 {
 	t_3d_vec cross_point = vec_add(hit_point, vec_scalar_mult(shadow_ray, t));
 	return (norm(vec_sub(cross_point, hit_point)));
+}
+
+t_3d_vec calc_offset(t_3d_vec hit_point, t_3d_vec normal, t_3d_vec camera_position, double offset_value)
+{
+	t_3d_vec offset_direction;
+	t_3d_vec offset_hit_point;
+
+	offset_direction = (dot_product(vec_sub(camera_position, hit_point), normal) > 0) ? 
+		vec_scalar_mult(normal, offset_value) : 
+		vec_scalar_mult(normal, -offset_value);
+	offset_hit_point = vec_add(hit_point, offset_direction);
+
+	return offset_hit_point;
 }
 
 static bool	_shadow_sphere(t_3d_vec shadow_ray, t_3d_vec hit_point,
@@ -28,9 +41,7 @@ static bool	_shadow_sphere(t_3d_vec shadow_ray, t_3d_vec hit_point,
 	while (j < game->sp_num)
 	{
 		t_3d_vec normal = vec_sub(hit_point, game->sphere[j].center_point);
-		double dot = dot_product(vec_sub(game->camera.initial_point, hit_point), normal);
-		double offset_factor = (dot > 0) ? 1e-3 : -1e-3;
-		hit_point_offset = vec_add(hit_point, vec_scalar_mult(normal, offset_factor));
+		hit_point_offset = calc_offset(hit_point, normal, game->camera.initial_point, 1e-4);
 		double light_distance = norm(vec_sub(hit_point, game->light.initial_point));
 		if (cross_detection_ray_and_sphere(shadow_ray, hit_point_offset,
 				&game->sphere[j], st) && st->t_sphere > EPSILON && st->is_front && calc_dis(hit_point, shadow_ray, st->t_sphere) < light_distance)
@@ -39,20 +50,6 @@ static bool	_shadow_sphere(t_3d_vec shadow_ray, t_3d_vec hit_point,
 	}
 	return (false);
 }
-
-static t_3d_vec	calc_offset(t_3d_vec hit_point, t_rt_info *game, int j)
-{
-	t_3d_vec offset_direction;
-	t_3d_vec offset_hit_point;
-	
-	offset_direction = (dot_product(vec_sub(game->camera.initial_point,
-		hit_point),game->plain[j].normal) > 0) ? 
-	vec_scalar_mult(game->plain[j].normal, 1e-4) : 
-	vec_scalar_mult(game->plain[j].normal, -1e-4);
-	 offset_hit_point = vec_add(hit_point, offset_direction);
-	return (offset_hit_point);
-}
-
 
 bool	is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game, double light_distance)
 {
@@ -67,7 +64,7 @@ bool	is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game, doub
 	j = 0;
 	while (j < game->pl_num)
 	{
-		if (cross_detection_ray_and_plain(shadow_ray, calc_offset(hit_point, game, j),
+		if (cross_detection_ray_and_plain(shadow_ray, calc_offset(hit_point, game->plain[j].normal, game->camera.initial_point, 1e-4),
 				&game->plain[j], &t) && t > EPSILON && calc_dis(hit_point, shadow_ray, t) < light_distance)
 				return (true);
 		j++;
