@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   detection.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 06:29:54 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/10 16:42:43 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/11 13:04:15 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,12 @@ bool	cross_detection_ray_and_sphere(t_3d_vec ray, t_3d_vec initial_point,
 	d = (b * b) - (4 * a * c);
 	if (d < EPSILON)
 		return (false);
-	if ((-b - sqrt(d)) / (2 * a) > EPSILON)
+	if (((-b - sqrt(d)) / (2 * a)) > EPSILON)
 		st->t_sphere = (-b - sqrt(d)) / (2 * a);
-	else if ((-b + sqrt(d)) / (2 * a) > EPSILON)
+	else if (((-b + sqrt(d)) / (2 * a)) > EPSILON)
 		st->t_sphere = (-b + sqrt(d)) / (2 * a);
 	else
 		return (false);
-	st->is_front = (dot_product(ray, vec_normalize
-				(vec_sub(vec_add(initial_point, vec_scalar_mult(ray, st->t)),
-						sp->center_point))) < 0);
+	st->is_front = true;
 	return (true);
 }
