@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_shape.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yutakagi <yutakagi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 06:30:46 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/10 18:46:10 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/11 11:25:20 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ void	parse_c(char **split, t_rt_info *game)
 	game->camera.fov = ft_atoi(split[3]);
 	if (game->camera.fov <= 0 || game->camera.fov >= 180)
 		config_error("Camera fov should be between 0 and 180");
-	if (game->camera.orient.x < 1e-6 && game->camera.orient.z < 1e-6)
-		game->camera.orient.x += 1e-4;
+	if (fabs(game->camera.orient.x) < 1e-6 && (game->camera.orient.z) < 1e-6)
+		game->camera.orient.x += 1e-5;
 }
 
 void	parse_a(char **split, t_rt_info *game)
