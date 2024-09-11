@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:08:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/11 18:44:33 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/11 19:36:38 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ static bool	_shadow_sphere(t_3d_vec shadow_ray, t_3d_vec hit_point,
 	j = 0;
 	while (j < game->sp_num)
 	{
-		hit_point_offset = vec_add(hit_point, vec_scalar_mult(vec_sub(hit_point,
-						game->sphere[j].center_point), 1e-3));
+		t_3d_vec normal = vec_sub(hit_point, game->sphere[j].center_point);
+		double dot = dot_product(vec_sub(game->camera.initial_point, hit_point), normal);
+		double offset_factor = (dot > 0) ? 1e-3 : -1e-3;
+		hit_point_offset = vec_add(hit_point, vec_scalar_mult(normal, offset_factor));
 		double light_distance = norm(vec_sub(hit_point, game->light.initial_point));
 		if (cross_detection_ray_and_sphere(shadow_ray, hit_point_offset,
 				&game->sphere[j], st) && st->t_sphere > EPSILON && st->is_front && calc_dis(hit_point, shadow_ray, st->t_sphere) < light_distance)
