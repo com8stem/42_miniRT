@@ -34,6 +34,8 @@
 # define SHADOW_FACTOR 0.5
 # define BACKGROUND_COLOR 0x000000
 
+//keycode and include mlx.h for mac and linux
+
 # ifdef __MACH__
 #  define KEY_ESC 53
 #  define KEY_UP 126
@@ -190,19 +192,25 @@ int					close_window(void);
 int					key_hook(int keycode, t_rt_info *game);
 void				set_loop_hook(t_rt_info *game);
 
+// ft_atob.c
 double				ft_atob(char *str);
+
+// read_file_utils.c
 int					file_open(char *filename);
 void				free_split(char **split);
 int					count_token(char **line);
 
 // calc_vector_utils.c
-double				dot_product(t_3d_vec vec1, t_3d_vec vec2);
 double				norm(t_3d_vec vec);
 t_3d_vec			vec_add(t_3d_vec vec1, t_3d_vec vec2);
 t_3d_vec			vec_sub(t_3d_vec vec1, t_3d_vec vec2);
 t_3d_vec			vec_scalar_mult(t_3d_vec vec, double scalar);
 t_3d_vec			vec_normalize(t_3d_vec vec);
+
+// calc_vector_utils_sub.c
 t_3d_vec			cross_product(t_3d_vec v1, t_3d_vec v2);
+double				dot_product(t_3d_vec vec1, t_3d_vec vec2);
+
 // generate_ray.c
 t_3d_vec			generate_ray(t_3d_vec initial_point, t_3d_vec target_point);
 
@@ -220,28 +228,34 @@ bool				cross_detection_ray_and_sphere(t_3d_vec ray,
 bool				cross_detection_ray_and_cylinder(t_3d_vec ray,
 						t_3d_vec initial_point, t_cylinder *cy, double *t);
 
+// detection_cy_utils.c
 bool				evaluate_val(double a, double b, double c, double *t_val);
 
+// parse_shape.c
 void				config_error(char *message);
 void				parse_sp(char **split, t_rt_info *game, int *sp_count);
 void				parse_l(char **split, t_rt_info *game);
 void				parse_c(char **split, t_rt_info *game);
 void				parse_a(char **split, t_rt_info *game);
 
-void				free_split(char **split);
-int					count_token(char **line);
+// parse_shape_sub.c
 void				parse_cy(char **split, t_rt_info *game, int *cy_count);
 void				parse_pl(char **split, t_rt_info *game, int *pl_count);
 
+// color_utils.c
 int					apply_ambient(t_rt_info *game, int color);
 int					convert_rgb_to_hex_shadow(int r, int g, int b,
 						double brightness);
 int					convert_rgb_to_hex(int r, int g, int b, double brightness);
+
+// parse_shape_sub_sub.c
 void				check_color_range(int r, int g, int b);
 
+// check_validation_sub.c
 void				show_format_error(char c);
 void				free_tokens(char **token);
 
+// set_detect_utils.c
 void				detect_sphere_on_ray(t_rt_info *game,
 						t_detect_status *status);
 void				detect_plain_on_ray(t_rt_info *game,
@@ -249,6 +263,7 @@ void				detect_plain_on_ray(t_rt_info *game,
 void				detect_cylinder_on_ray(t_rt_info *game,
 						t_detect_status *status);
 
+// set_color_utils.c
 bool				is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point,
 						t_rt_info *game);
 void				set_color(t_rt_info *game, t_detect_status *st,
