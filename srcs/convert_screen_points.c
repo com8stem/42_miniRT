@@ -20,7 +20,7 @@ t_3d_vec	convert_screen_points(int x, int y, double fov)
 	double		theta;
 
 	aspect_ratio = (double)WIDTH / (double)HEIGHT;
-	theta = fov * 0.5 * 3.14159265358979323846 / 180.0;
+	theta = fov * 0.5 * M_PI / 180.0;
 	if (theta == 0)
 		theta = 0.01;
 	else if (theta > 1.5)

@@ -34,6 +34,8 @@
 # define SHADOW_FACTOR 0.5
 # define BACKGROUND_COLOR 0x000000
 
+# define _USE_MATH_DEFINES
+
 //keycode and include mlx.h for mac and linux
 
 # ifdef __MACH__
