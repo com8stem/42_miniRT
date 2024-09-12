@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../include/minirt.h"
 
 t_3d_vec	convert_screen_points(int x, int y, double fov)
 {

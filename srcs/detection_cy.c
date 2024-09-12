@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../include/minirt.h"
 
 static bool	intersect(t_3d_vec ray, t_3d_vec initial_point, t_cylinder *cy,
 		double *t1)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../include/minirt.h"
 
 static bool	_detect_sp(t_rt_info *game, t_detect_status *st, int i)
 {

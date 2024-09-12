@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../include/minirt.h"
 
 bool	cross_detection_ray_and_plain(t_3d_vec ray, t_3d_vec initial_point,
 		t_plain *pl, double *t)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../include/minirt.h"
 
 static void	_is_valid_cy(t_rt_info *game, int cy_count,
 		t_cylinder tmp_cy)

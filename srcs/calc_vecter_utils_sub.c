@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../include/minirt.h"
 
 t_3d_vec	cross_product(t_3d_vec v1, t_3d_vec v2)
 {

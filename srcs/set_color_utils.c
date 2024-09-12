@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../include/minirt.h"
 
 static bool	_shadow_sphere(t_3d_vec shadow_ray, t_3d_vec hit_point,
 		t_rt_info *game, t_detect_status *st)

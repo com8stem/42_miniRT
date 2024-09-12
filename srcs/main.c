@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../include/minirt.h"
 
 void	my_mlx_pixel_put(t_imgdata *img, int x, int y, int color)
 {
