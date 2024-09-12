@@ -14,7 +14,7 @@
 
 static int	_ft_is_space(int n)
 {
-	if (n == ' ')
+	if (n == ' ' || (n >= '\t' && n <= '\r'))
 		return (1);
 	return (0);
 }
