@@ -147,7 +147,7 @@ typedef struct s_rt_info
 	int				sp_num;
 	int				pl_num;
 	int				cy_num;
-	int				color_map[WIDTH][HEIGHT];
+	int				color_map[HEIGHT][WIDTH];
 	int				num_camera;
 	int				num_light;
 	int				num_ambient;
