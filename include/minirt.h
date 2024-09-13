@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:01:32 by kishizu           #+#    #+#             */
-/*   Updated: 2024/09/11 17:50:38 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/13 07:33:15 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,5 +278,6 @@ char				**x_ft_split(char const *s, char c);
 char				*x_ft_substr(char const *s, unsigned int start, size_t len);
 void				*x_ft_calloc(size_t count, size_t size);
 void				*x_malloc(size_t size);
+t_3d_vec			calc_offset(t_3d_vec hit_point, t_3d_vec normal, t_3d_vec camera_position, double offset_value);
 
 #endif
