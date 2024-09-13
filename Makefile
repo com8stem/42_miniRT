@@ -24,6 +24,7 @@ SRCS = $(SRC_DIR)/calc_vector_utils.c\
 	$(SRC_DIR)/set_color_offset.c\
 	$(SRC_DIR)/wrapper_func.c\
 	$(SRC_DIR)/parse_shape_sub_sub.c
+
 OBJS = $(SRCS:.c=.o)
 HEADERS = include/minirt.h
 CC = cc
