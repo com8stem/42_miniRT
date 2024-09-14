@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_color_detect_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:11:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/14 14:24:44 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/14 07:53:19 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@ static bool	_detect_sp(t_rt_info *game, t_detect_status *st, int i)
 {
 	return (cross_detection_ray_and_sphere(st->ray, game->camera.initial_point,
 			&game->sphere[i], st) && st->t_sphere > 0 && st->is_front);
+}
+
+void	calc_dist_hit_point(t_rt_info *game, t_detect_status *st, double t)
+{
+	st->hit_point = vec_add(game->camera.initial_point,
+			vec_scalar_mult(st->ray, t));
+	st->distance = norm(vec_sub(game->camera.initial_point, st->hit_point));
 }
 
 void	detect_sphere_on_ray(t_rt_info *game, t_detect_status *st)
@@ -29,10 +36,11 @@ void	detect_sphere_on_ray(t_rt_info *game, t_detect_status *st)
 		st->is_front = false;
 		if (_detect_sp(game, st, i))
 		{
-			st->hit_point = vec_add(game->camera.initial_point,
-					vec_scalar_mult(st->ray, st->t_sphere));
-			st->distance = norm(vec_sub(game->camera.initial_point,
-						st->hit_point));
+			// st->hit_point = vec_add(game->camera.initial_point,
+			// 		vec_scalar_mult(st->ray, st->t_sphere));
+			// st->distance = norm(vec_sub(game->camera.initial_point,
+			// 			st->hit_point));
+			calc_dist_hit_point(game, st, st->t_sphere);
 			if (st->distance < st->min_distance)
 			{
 				st->min_distance = st->distance;
@@ -59,10 +67,11 @@ void	detect_plain_on_ray(t_rt_info *gm, t_detect_status *st)
 		if (cross_detection_ray_and_plain(st->ray, gm->camera.initial_point,
 				&gm->plain[i], &st->t_plain) && st->t_plain > 0)
 		{
-			st->hit_point = vec_add(gm->camera.initial_point,
-					vec_scalar_mult(st->ray, st->t_plain));
-			st->distance = norm(vec_sub(gm->camera.initial_point,
-						st->hit_point));
+			// st->hit_point = vec_add(gm->camera.initial_point,
+			// 		vec_scalar_mult(st->ray, st->t_plain));
+			// st->distance = norm(vec_sub(gm->camera.initial_point,
+			// 			st->hit_point));
+			calc_dist_hit_point(gm, st, st->t_plain);
 			if (st->distance < st->min_distance)
 			{
 				st->min_distance = st->distance;
@@ -95,10 +104,11 @@ void	detect_cylinder_on_ray(t_rt_info *game, t_detect_status *st)
 	{
 		if (_cross_detect_cy(game, st, i))
 		{
-			st->hit_point = vec_add(game->camera.initial_point,
-					vec_scalar_mult(st->ray, st->t_cylinder));
-			st->distance = norm(vec_sub(game->camera.initial_point,
-						st->hit_point));
+			// st->hit_point = vec_add(game->camera.initial_point,
+			// 		vec_scalar_mult(st->ray, st->t_cylinder));
+			// st->distance = norm(vec_sub(game->camera.initial_point,
+			// 			st->hit_point));
+			calc_dist_hit_point(game, st, st->t_cylinder);
 			if (st->distance < st->min_distance)
 			{
 				st->min_distance = st->distance;
