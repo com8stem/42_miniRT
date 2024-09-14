@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   set_color_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
+/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:08:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/13 07:32:58 by yutakagi         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:26:31 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-static double calc_dis(t_3d_vec hit_point, t_3d_vec shadow_ray, double t)
+static double	calc_dis(t_3d_vec hit_point, t_3d_vec shadow_ray, double t)
 {
-	t_3d_vec cross_point = vec_add(hit_point, vec_scalar_mult(shadow_ray, t));
+	t_3d_vec	cross_point;
+
+	cross_point = vec_add(hit_point, vec_scalar_mult(shadow_ray, t));
 	return (norm(vec_sub(cross_point, hit_point)));
 }
 
@@ -24,22 +26,26 @@ static bool	_shadow_sphere(t_3d_vec shadow_ray, t_3d_vec hit_point,
 	int			j;
 	t_3d_vec	hit_point_offset;
 	double		light_distance;
+	t_3d_vec	normal;
 
 	j = 0;
 	while (j < game->sp_num)
 	{
-		t_3d_vec normal = vec_sub(hit_point, game->sphere[j].center_point);
-		hit_point_offset = calc_offset(hit_point, normal, game->camera.initial_point, 1e-4);
+		normal = vec_sub(hit_point, game->sphere[j].center_point);
+		hit_point_offset = calc_offset(hit_point, normal,
+				game->camera.initial_point, 1e-4);
 		light_distance = norm(vec_sub(hit_point, game->light.initial_point));
 		if (cross_detection_ray_and_sphere(shadow_ray, hit_point_offset,
-				&game->sphere[j], st) && st->t_sphere > EPSILON && st->is_front && calc_dis(hit_point, shadow_ray, st->t_sphere) < light_distance)
+				&game->sphere[j], st) && st->t_sphere > EPSILON && st->is_front
+			&& calc_dis(hit_point, shadow_ray, st->t_sphere) < light_distance)
 			return (true);
 		j++;
 	}
 	return (false);
 }
 
-bool	is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game, double light_distance)
+bool	is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game,
+		double light_distance)
 {
 	int				j;
 	t_detect_status	st;
@@ -52,16 +58,19 @@ bool	is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point, t_rt_info *game, doub
 	j = 0;
 	while (j < game->pl_num)
 	{
-		if (cross_detection_ray_and_plain(shadow_ray, calc_offset(hit_point, game->plain[j].normal, game->camera.initial_point, 1e-4),
-				&game->plain[j], &t) && t > EPSILON && calc_dis(hit_point, shadow_ray, t) < light_distance)
-				return (true);
+		if (cross_detection_ray_and_plain(shadow_ray, calc_offset(hit_point,
+					game->plain[j].normal, game->camera.initial_point, 1e-4),
+				&game->plain[j], &t) && t > EPSILON && calc_dis(hit_point,
+				shadow_ray, t) < light_distance)
+			return (true);
 		j++;
 	}
 	j = 0;
 	while (j < game->cy_num)
 	{
 		if (cross_detection_ray_and_cylinder(shadow_ray, hit_point,
-				&game->cylinder[j], &t) && t > EPSILON && calc_dis(hit_point, shadow_ray, t) < light_distance)
+				&game->cylinder[j], &t) && t > EPSILON && calc_dis(hit_point,
+				shadow_ray, t) < light_distance)
 			return (true);
 		j++;
 	}
