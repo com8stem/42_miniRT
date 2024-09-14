@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_color_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yutakagi <yutakagi@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 07:08:29 by yutakagi          #+#    #+#             */
-/*   Updated: 2024/09/14 15:18:13 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/14 08:26:20 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ void	set_color_shadow(t_rt_info *game, t_detect_status *st, char object_type,
 		color = convert_rgb_to_hex_shadow(game->cylinder[i].color.r,
 				game->cylinder[i].color.g, game->cylinder[i].color.b,
 				game->light.brightness);
+	if (object_type == 's' || object_type == 'p' || object_type == 'c')
+		color = apply_ambient(game, color);
 	else
 		color = BACKGROUND_COLOR;
 	game->color_map[st->y][st->x] = color;
