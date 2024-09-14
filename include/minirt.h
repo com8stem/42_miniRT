@@ -6,7 +6,7 @@
 /*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:01:32 by kishizu           #+#    #+#             */
-/*   Updated: 2024/09/14 14:27:37 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/14 15:01:55 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,6 +264,11 @@ void				detect_plain_on_ray(t_rt_info *game,
 						t_detect_status *status);
 void				detect_cylinder_on_ray(t_rt_info *game,
 						t_detect_status *status);
+
+// set_detect_utils_sub.c
+
+void				calc_dist_hit_point(t_rt_info *game, t_detect_status *st,
+						double t);
 
 // set_color_utils.c
 bool				is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point,
