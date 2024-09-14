@@ -20,6 +20,7 @@ SRCS = $(SRC_DIR)/calc_vector_utils.c\
 	$(SRC_DIR)/parse_shape_sub.c\
 	$(SRC_DIR)/color_utils.c\
 	$(SRC_DIR)/set_color_utils.c\
+	$(SRC_DIR)/set_color_utils_sub.c\
 	$(SRC_DIR)/set_color_detect_utils.c\
 	$(SRC_DIR)/set_color_detect_utils_sub.c\
 	$(SRC_DIR)/set_color_offset.c\

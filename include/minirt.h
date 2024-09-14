@@ -6,7 +6,7 @@
 /*   By: kishizu <kishizu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:01:32 by kishizu           #+#    #+#             */
-/*   Updated: 2024/09/14 15:01:55 by kishizu          ###   ########.fr       */
+/*   Updated: 2024/09/14 15:18:37 by kishizu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,12 +271,19 @@ void				calc_dist_hit_point(t_rt_info *game, t_detect_status *st,
 						double t);
 
 // set_color_utils.c
+double				calc_dis(t_3d_vec hit_point, t_3d_vec shadow_ray, double t);
+
 bool				is_in_shadow(t_3d_vec shadow_ray, t_3d_vec hit_point,
 						t_rt_info *game, double light_distance);
 void				set_color(t_rt_info *game, t_detect_status *st,
 						char object_type, int i);
 void				set_color_shadow(t_rt_info *game, t_detect_status *st,
 						char object_type, int i);
+
+// set_color_utils_sub.c
+bool				detect_plain_wrapped(t_3d_vec shadow_ray,
+						t_3d_vec hit_point, t_rt_info *game,
+						double light_distance);
 
 // wrapper_func.c
 char				**x_ft_split(char const *s, char c);
