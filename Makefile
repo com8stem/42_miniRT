@@ -30,27 +30,16 @@ HEADERS = include/minirt.h
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Ofast
 LINUX_MLXFLAGS = -lXext -lX11 -lm -Ofast #for Linux
-MLXFLAGS = -Imlx -lmlx -framework OpenGL -framework AppKit -lm #for macOS
 INCDIR = .
 LIBDIR = ./libft
 LIBFT = ./libft/libft.a
 MLXDIR = ./minilibx-linux
 MLXLIB = ./minilibx-linux/libmlx_Linux.a
 
-UNAME_S = $(shell uname -s)
-
 all:	$(NAME)
 
 $(NAME):	$(OBJS) $(LIBFT) $(MLXLIB) $(HEADERS)
-ifeq ($(UNAME_S), Linux)
-	@echo "Running on Linux"
 	@$(CC) $(OBJS) $(LIBFT) $(MLXLIB) $(CFLAGS) $(LINUX_MLXFLAGS) -o $(NAME)
-else ifeq ($(UNAME_S), Darwin)
-	@echo "Running on macOS"
-	@$(CC) $(OBJS) $(LIBFT) $(CFLAGS) $(MLXFLAGS) -o $(NAME)
-else
-	@echo "Error: Unknown OS"
-endif
 
 %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(INCDIR)
@@ -64,26 +53,11 @@ $(MLXLIB):
 clean:
 	@rm -f $(OBJS)
 	@make clean -C $(LIBDIR)
-ifeq ($(UNAME_S), Linux)
-	@echo "Running on Linux"
-
-else ifeq ($(UNAME_S), Darwin)
-	@echo "Running on macOS"
-else
-	@echo "Error: Unknown OS"
-endif
+	@make clean -C $(MLXDIR)
 
 fclean:	clean
 	@rm -f $(NAME)
 	@make fclean -C $(LIBDIR)
-ifeq ($(UNAME_S), Linux)
-	@echo "Running on Linux"
-	@make clean -C $(MLXDIR)
-else ifeq ($(UNAME_S), Darwin)
-	@echo "Running on macOS"
-else
-	@echo "Error: Unknown OS"
-endif
 
 re: fclean all
 
