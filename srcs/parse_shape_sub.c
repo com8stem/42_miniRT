@@ -1,0 +1,100 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_shape_sub.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yutakagi <yutakagi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/02 07:15:15 by yutakagi          #+#    #+#             */
+/*   Updated: 2024/09/11 15:31:41 by yutakagi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/minirt.h"
+
+static void	_is_valid_cy(t_rt_info *game, int cy_count,
+		t_cylinder tmp_cy)
+{
+	if ((game->cylinder[cy_count].orient.x == 0
+			&& game->cylinder[cy_count].orient.y == 0
+			&& game->cylinder[cy_count].orient.z == 0)
+		|| game->cylinder[cy_count].height <= 0
+		|| game->cylinder[cy_count].diameter <= 0)
+		config_error("Cylinder orinet, height and diameter can not be zero");
+	check_color_range(tmp_cy.color.r, tmp_cy.color.g, tmp_cy.color.b);
+	return ;
+}
+
+static void	set_val(char **tmp, int *cy_count, t_rt_info *game)
+{
+	game->cylinder[*cy_count].center_point.x = ft_atob(tmp[0]);
+	game->cylinder[*cy_count].center_point.y = ft_atob(tmp[1]);
+	game->cylinder[*cy_count].center_point.z = ft_atob(tmp[2]);
+}
+
+void	parse_cy(char **split, t_rt_info *game, int *cy_count)
+{
+	char	**tmp;
+
+	tmp = x_ft_split(split[1], ',');
+	if (count_token(tmp) != 3)
+		config_error("Cylinder center point format is wrong");
+	set_val(tmp, cy_count, game);
+	free_split(tmp);
+	tmp = x_ft_split(split[2], ',');
+	if (count_token(tmp) != 3)
+		config_error("Cylinder orient format is wrong");
+	game->cylinder[*cy_count].orient.x = ft_atob(tmp[0]);
+	game->cylinder[*cy_count].orient.y = ft_atob(tmp[1]);
+	game->cylinder[*cy_count].orient.z = ft_atob(tmp[2]);
+	free_split(tmp);
+	game->cylinder[*cy_count].diameter = ft_atob(split[3]);
+	game->cylinder[*cy_count].height = ft_atob(split[4]);
+	tmp = x_ft_split(split[5], ',');
+	game->cylinder[*cy_count].color.r = ft_atoi(tmp[0]);
+	game->cylinder[*cy_count].color.g = ft_atoi(tmp[1]);
+	game->cylinder[*cy_count].color.b = ft_atoi(tmp[2]);
+	free_split(tmp);
+	check_color_range(game->cylinder[*cy_count].color.r,
+		game->cylinder[*cy_count].color.g, game->cylinder[*cy_count].color.b);
+	_is_valid_cy(game, *cy_count, game->cylinder[*cy_count]);
+	*cy_count += 1;
+}
+
+static void	_is_valid_pl(t_rt_info *game, char **tmp, int pl_count)
+{
+	if (count_token(tmp) != 3 || (game->plain[pl_count].normal.x == 0
+			&& game->plain[pl_count].normal.y == 0
+			&& game->plain[pl_count].normal.z == 0))
+		config_error("Plain normal format is wrong");
+	return ;
+}
+
+void	parse_pl(char **split, t_rt_info *game, int *pl)
+{
+	char	**tmp;
+
+	tmp = x_ft_split(split[1], ',');
+	if (count_token(tmp) != 3)
+		config_error("Plain point format is wrong");
+	game->plain[*pl].point.x = ft_atob(tmp[0]);
+	game->plain[*pl].point.y = ft_atob(tmp[1]);
+	game->plain[*pl].point.z = ft_atob(tmp[2]);
+	free_split(tmp);
+	tmp = x_ft_split(split[2], ',');
+	if (count_token(tmp) != 3)
+		config_error("Plain normal format is wrong");
+	game->plain[*pl].normal.x = ft_atob(tmp[0]);
+	game->plain[*pl].normal.y = ft_atob(tmp[1]);
+	game->plain[*pl].normal.z = ft_atob(tmp[2]);
+	free_split(tmp);
+	tmp = x_ft_split(split[3], ',');
+	_is_valid_pl(game, tmp, *pl);
+	game->plain[*pl].color.r = ft_atoi(tmp[0]);
+	game->plain[*pl].color.g = ft_atoi(tmp[1]);
+	game->plain[*pl].color.b = ft_atoi(tmp[2]);
+	free_split(tmp);
+	check_color_range(game->plain[*pl].color.r, game->plain[*pl].color.g,
+		game->plain[*pl].color.b);
+	*pl += 1;
+}
